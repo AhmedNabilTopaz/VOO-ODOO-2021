@@ -1,0 +1,333 @@
+.o_kanban_view.o_kanban_dashboard.o_connector_kanban {
+    padding-top: 25px;
+    background: $white;
+    .o_kanban_record {
+        .o_kanban_card_header {
+            .o_kanban_card_header_title {
+                .col-1 i {
+                    font-size: 1.3em;
+                    color: #273FE4;
+                    border: 1px;
+                    border-radius: 27px;
+                    padding: 7px;
+                    background: #E9ECFF;
+                }
+                .field_name{
+                    font-family: Montserrat-SemiBold;
+                    font-size: 18px;
+                    color: #333333;
+                    text-decoration:underline;
+                }
+                .o_secondary {
+                    font-family: Montserrat-Regular;
+                    font-size: 14px;
+                    color: #555555;
+                }
+            }
+        }
+        .o_kanban_card_content {
+            .o_kanban_card_upper_content {
+                .container-fluid {
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                    font-weight: bold;
+                    color: #333333;
+                    border-top: 1px solid lightgray;
+                    .col-12 {
+                        padding-left: 10px !important;
+                        padding-right: 10px !important;
+                        .kanban_head {
+                            font-weight: bold;
+                            font-size: 16px;
+                        }
+                        .view_padding {
+                            padding-top: 5px;
+                            .button_view {
+                                font-size: 13px;
+                            }
+                            .button_data, .button_data_new {
+                                background:#333333;
+                                border-radius: 15px;
+                                padding: 1px 15px;
+                            }
+                            .total_mapped {
+                                padding: 30px;
+                                background: #F8F8F8;
+                                max-width: 48%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .oe_kanban_action_button {
+            margin-bottom: 5px;
+        }
+
+        .o_kanban_card_settings {
+            padding-top: $o-horizontal-padding/2;
+            padding-bottom: $o-horizontal-padding/2;
+
+            border-top: 1px solid;
+            border-color: $o-brand-lightsecondary;
+        }
+        .o_dashboard_star {
+            font-size: 12px;
+
+            &.fa-star-o {
+                color: $o-main-color-muted;
+                &:hover {
+                    color: gold;
+                }
+            }
+            &.fa-star {
+                color: gold;
+            }
+        }
+
+        .o_dashboard_graph {
+            margin-bottom: -$o-horizontal-padding/2;
+        }
+
+        .o_connector_kanban_graph_section {
+            .o_graph_linechart {
+                > svg {
+                    height: 80px;
+
+                    // X axis
+                    g.nv-x.nv-axis {
+                        // move the labels up, so they aren't hidden below the graph, and the lines back down.
+                        transform: translateY(50px);
+                        line {
+                            transform: translateY(30px);
+                        }
+                        .nv-axislabel{
+                            transform:translateY(-78px);
+                            font-weight: bold;
+                        }
+
+                        // Remove max and min labels
+                        g.nv-axisMaxMin {
+                            display: none;
+                        }
+                        g.tick.major {
+                            // Don't know why, but leads to strange bold text
+                            // stroke: $o-brand-odoo;
+
+                            line {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    // !important are needed because nvd3 uses inline style on elements
+
+                    // Remove strokes
+                    g.nv-linesWrap {
+                        g.nv-group.nv-series-0 {
+                            fill-opacity: 0.3 !important;
+
+                            .nv-point {
+                                visibility: hidden;
+                                r: 3;
+                                fill: white;
+                                stroke-width: 2;
+                            }
+                        }
+                    }
+                }
+            }
+            .o_graph_barchart {
+                > svg {
+                    height: 95px;
+                    overflow: visible;
+                }
+            }
+        }
+    }
+
+    &.o_kanban_ungrouped {
+        .o_kanban_record {
+            width: 450px;
+        }
+    }
+    
+}
+.pl-3
+{
+    display: flex;
+}
+
+
+.o_connector_dashboard {
+    // position: relative;
+
+    .o_welcome_message {
+        background-color:white;
+        padding: 20px;
+        width: 100%;
+
+        .o_welcome_image {
+            padding: 20px;
+        }
+        .o_welcome_content > a {
+            color: white;
+            display: inline-block;
+        }
+    }
+
+    .new_conn {
+        background-color: #21b799;
+        font-weight: 800;
+        border: #21b799;
+        border-radius: 0px;
+    }
+
+    > div {
+        display: inline-block;
+        vertical-align: top;
+        .o_main2 {
+                    background-color: #21b799;
+                    &:hover {
+                        background-color: darken(#21b799, 10%);
+                    }
+                    a {
+                        color: white;
+                    }
+        }
+
+        > table {
+            margin-bottom: 0;
+            table-layout: fixed;
+            border-collapse: separate;
+
+            > tbody > tr > td {
+                vertical-align: middle;
+                text-align: center;
+                // border-top: 1px solid #c0f0e4;
+                width: 25%;
+
+                height: 70px;
+
+                span {
+                    display: inline;
+                }
+
+                a:hover {
+                    text-decoration: none;
+                }
+
+                &.o_main {
+                    background-color: #2179b7;
+                    &:hover {
+                        background-color: darken(#2179b7, 10%);
+                    }
+                    a {
+                        color: white;
+                    }
+                }
+                &.o_warning {
+                    background-color: orange;
+                    &:hover {
+                        background-color: darken(orange, 10%);
+                    }
+                    a {
+                        color: white;
+                    }
+                }
+                &.o_secondary {
+                    background-color: #c0f0e4;
+                    &:hover {
+                        background-color: darken(#c0f0e4, 10%);
+                    }
+                    a {
+                        color: black;
+                    }
+                }
+                &.o_highlight, .o_highlight {
+                    font-size: 20px;
+                }
+                &.o_text {
+                    text-align: left;
+                }
+            }
+
+        }
+    }
+}
+
+
+
+
+// Style for the widget "dashboard_graph"
+.o_dashboard_graph {
+    &.o_graph_linechart {
+        > svg {
+            height: 75px;
+            // Display cut bullets to full bullets
+            g.nvd3.nv-wrap.nv-line clipPath {
+                display: none;
+            }
+
+            // X axis
+            g.nv-x.nv-axis {
+                transform: translateY(50px);
+
+                // Remove max and min labels
+                g.nv-axisMaxMin {
+                    display: none;
+                }
+                g.tick.major {
+                    // Don't know why, but leads to strange bold text
+                    // stroke: $o-brand-odoo;
+
+                    line {
+                        display: none;
+                    }
+                }
+            }
+
+            // !important are needed because nvd3 uses inline style on elements
+
+            // Remove strokes
+            g.nv-linesWrap {
+                g.nv-group.nv-series-0 {
+                    fill-opacity: 0.3 !important;
+                    fill: $o-brand-odoo !important;
+                    stroke: $o-brand-odoo !important;
+
+                    .nv-point {
+                        visibility: hidden;
+                        r: 3;
+                        stroke: $o-brand-odoo !important;
+                        fill: white;
+                        stroke-width: 2;
+                    }
+                    .nv-point:nth-child(n+1) {
+                        visibility: visible;
+                        fill-opacity: .95 !important;
+                        stroke-opacity: .95 !important;
+                    }
+                }
+            }
+        }
+    }
+    &.o_graph_barchart {
+        > svg {
+            height: 75px;
+            overflow: visible;
+            g.nv-barsWrap {
+                g.nv-group.nv-series-0 {
+                    g.past {
+                        opacity: 0.5;
+                        fill: $o-brand-odoo !important;
+                    }
+                    g.future {
+                        opacity: 0.5;
+                        fill: $o-brand-primary !important;
+                    }
+                }
+            }
+        }
+    }
+}

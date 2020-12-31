@@ -1,0 +1,181 @@
+.o_skeleton_kanban {
+    display: flex;
+    flex-direction: column; // display lunch widget above kanban renderer
+    flex: 1 1 100%; // displayed to the right of the searchPanel
+    min-width: 0; // prevent grouped kanban from horizontally overflowing
+    height: 100%;
+    .o_skeleton_widget {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        background: #F8F8F8;
+        > .row {
+            padding: 10px 0;
+            .instance_channel {
+                font-family: Montserrat-SemiBold;
+                font-size: 20px;
+                color: #333333;
+                text-align: center;
+                line-height: 27px;
+                padding: 0px 30px;
+                text-shadow: 0 1px 2px #000000 50%;
+            }
+            .dynamic_channel {
+                .o_skeleton_selecton_ecom, .o_skeleton_instance_field {
+                    border: 1px solid #E0E0E0;
+                    select, input {
+                        font-family: Montserrat-Regular;
+                        font-size: 14px;
+                        color: #333333;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .dynamic_channel {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            > div {
+                flex: 0 0 60%;
+                select, input {
+                    height: 30px;
+                }
+            }
+            > span {
+                flex: 0 0 40%;
+            }
+        }
+    }
+    .bridge_row {
+        align-items: center;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        background: #ffffff;
+        .img {
+            padding: 0px 0;
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+        }
+        .content {
+            padding: 20px 0;
+            line-height: 20px;
+            & > * {
+                padding: 0px;
+            }
+            .bridge_name {
+                font-family: Montserrat-Bold;
+                font-size: 38px;
+                color: #333333;
+                font-weight: 600;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            }
+            .button_div { 
+                display: flex;
+                & > span {
+                    flex: 0 0 60%;
+                }
+                .div_connect {
+                    padding: 0px 16px;
+                    background-color: rgba(55,188,95,1);
+                    .class_span {
+                        font-family: Montserrat-SemiBold;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                        }
+                    }
+                .div_disconnect {
+                    padding: 0px 16px;
+                    background-color: rgb(245, 99, 99);
+                    .class_span {
+                        font-family: Montserrat-SemiBold;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }    
+                }
+            }
+            .title {
+                font-family: Montserrat-Medium;
+                font-size: 16px;
+                color: #555555;
+                line-height: 27px;
+                padding-top: 15px;
+                padding-bottom: 10px;
+                // .bridge_text {
+                //     font-family: Montserrat-Medium;
+                //     font-size: 16px;
+                //     color: #555555;
+                //     line-height: 27px;
+                // }
+            }
+            .btn_call {
+                display: flex;
+                flex-wrap: wrap;
+                .connector_btn {
+                    height: 35px;
+                    align-items: center;
+                    display: flex;
+                    .sync_button {
+                        font-family: Montserrat-Regular;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                        padding: 15px 20px;
+                    }
+                }
+                .bulk_user {
+                    background-color: #273FE4;
+                    margin-left: 10px;
+                }
+                .bulk_button {
+                    background-color: #333333;
+                }
+            }
+            .need_text{
+                font-family: Montserrat-SemiBold;
+                font-size: 20px;
+                color: #333333;
+                display: flex;
+                padding: 40px 30px 20px 60px;
+                line-height: 27px;
+                text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            
+            }
+        }
+    }
+    .container-fluid {
+        .text-center {
+            padding:10px 0 30px 0;
+            .need_text {
+                font-family: Montserrat-SemiBold;
+                font-size: 20px;
+                color: #333333;
+                text-align: center;
+                font-weight: 600;
+                line-height: 50px;
+            }
+            .connector_review {
+                a {
+                    border-radius: 0px;
+                    background: #FFFFFF;
+                    border: 1px solid #E0E0E0;
+                    margin-left: 10px;
+                    padding: 0.575rem 1.75rem;
+                    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16);
+                }
+            }
+        }
+    }
+}
+
+   
+    
+.new_conn {
+    background-color: #21b799;
+    font-weight: 800;
+    border: #21b799;
+    border-radius: 0px;
+}

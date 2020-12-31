@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <div t-name="SkeletonKanbanWidget" class="o_skeleton_kanban_banner container-fluid">
+        <t t-if="widget.active != 'new'">
+            <div class="row">
+                <div class="o_skeleton_widget py-3 py-md-0 container-fluid">
+                    <div class="row">
+                        <div  class="col-12 col-md-6 col-lg-6">
+                            <span class="instance_channel">Choose Channel And Instance :</span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="row dynamic_channel">
+                                <div class="col-6 col-md-6 col-lg-6">
+                                    <div class="o_skeleton_selecton_ecom" />
+                                </div>
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                    <div class="o_skeleton_instance_field" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row bridge_row o_welcome_image container-fluid">
+                    <div class="col-12 col-lg-4 img">
+                        <img t-att-src="widget.img_link" style="display:block;"/>
+                    </div>
+                    <div class="col-12 col-lg-8 content">
+                        <div class='button_div'>
+                            <span/>
+                            <t t-if="widget.status != 'not_connected'">
+                                <div class='div_connect'>
+                                    <a data-reload-on-close="true"
+                                        type="action" role="button"
+                                        data-method="open_mob_success_connection"
+                                        data-model="connector.dashboard">
+                                        <span class="class_span"> Connected</span>
+                                    </a>
+                                </div>
+                            </t>
+                            <t t-if="widget.status == 'not_connected'"
+                                class="o_main connect_button">
+                                <div class='div_disconnect'>
+                                    <a data-reload-on-close="true"
+                                        type="action" role="button"
+                                        context="{'search_default_error':1}"
+                                        data-method="open_mob_error_connection"
+                                        data-model="connector.dashboard" >
+                                        <span class="class_span">   Disconnected </span>
+                                    </a>
+                                </div> 
+                            </t>
+                        </div>
+                    
+                        <div class="bridge_name"><span t-esc="widget.bridge_name"/> ODOO BRIDGE</div>
+        
+                        <div class='title'>
+                            <div class="text">
+                                <span class="bridge_text">Connect your odoo with </span> <span class='bridge_text' t-esc="widget.bridge_name" style='text-transform: lowercase;'/> <span class='bridge_text'>!!!</span>
+                            </div>
+                            <div class="text">
+                                <span class="bridge_text">Start managing your</span>
+                                <span class='bridge_text' t-esc="widget.bridge_name" style='text-transform: lowercase;'/>  
+                                <span class="bridge_text">and odoo sales, accounting and inventory at one place.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class='btn_call'>
+                            <div class="connector_btn bulk_button">
+                                <a data-reload-on-close="true"
+                                    type="action" role="button"
+                                    data-method="open_bulk_synchronization"
+                                    data-model="connector.dashboard" class="sync_button">
+                                    Bulk Synchronization
+                                </a>
+                            </div>
+                            <div class="connector_btn bulk_user">
+                                <a t-att-href="widget.user_guide" target="_blank" class="sync_button assist">
+                                <i class="fa fa-file" style="font-size:1.0em;color:#FFFFFF;"></i>
+                                    User Guide
+                                </a>
+                            </div>
+                            <div class="connector_btn bulk_user">
+                                <a t-att-href="widget.extension" target="_blank" class="sync_button assist">
+                                    <span t-esc="widget.bridge_short_form"/> Extension
+                                </a>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="col-12 text-center"> 
+                        <div class='need_text'>
+                            <span>Need Help and View Reviews</span>
+                        </div>
+                        <div class='connector_review'>
+                            <a t-att-href="widget.rate_review" target="_blank" class="btn btn-default fa fa-star-o" role="button">Reviews And Rating</a>
+                            <a href="https://webkul.uvdesk.com/en/customer/create-ticket/" target="_blank" class="btn btn-default fa fa-support" role="button">Need Assistance</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </t>
+         <div class='row'>
+            <div t-if="widget.active == 'new'" class="" style="color:#105050;margin: 0 auto;">
+                <div class="o_welcome_image" style="color:#875a7b;margin-right:20px">
+                    <i class="fa fa-smile-o fa-10x"></i>
+                </div>
+                <div class="" style="float:right;">
+                    <h2>Hi there!</h2>
+                    <h3>Getting Started with <span  t-esc="widget.bridge_name" style='text-transform: lowercase;'/> Odoo Bridge</h3>
+                    <h4>
+                    Currently no <span t-esc="widget.bridge_name" style='text-transform: lowercase;'/> active connections found, kindly configure one !!
+                    </h4>
+                        <a data-reload-on-close="true"
+                            type="action" role="button"
+                            class="btn btn-primary new_conn"
+                            data-method="create_new_connection"
+                            data-model="connector.dashboard"
+                            style="cursor:pointer;color:white;">
+                                Configure Connection
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</templates>
+    
