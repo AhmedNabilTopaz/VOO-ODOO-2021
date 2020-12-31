@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_inherit_image_form_view">
+            <field name="name">product.inherit.form</field>
+            <field name="model">product.image</field>
+            <field name = "inherit_id" ref ="website_sale.view_product_image_form"/>
+            <field name="arch" type="xml">
+                <data>
+                  <xpath expr="//field[@name='video_url']" position="after"><br/>
+                    <field name="extra_image_ids"  nolabel="1">
+                        <tree string = "Extra Images" editable="bottom">
+                            <field name="instance_id" editable="bottom"/>
+                            <!-- <field name="ecommerce_channel"/> -->
+                        </tree>
+                    </field>
+                  </xpath>
+                </data>
+            </field>
+        </record>   
+        
+    </data>
+</odoo>
