@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <record id="connector_dashboard_kanban_view" model="ir.ui.view">
+        <field name="name">connector.dashboard.kanban</field>
+        <field name="model">connector.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban js_class="skeleton_kanban" create="false" class="oe_background_grey o_kanban_dashboard o_connector_kanban">
+                <field name="color"/>
+                <field name="name"/>
+                <field name="item_name"/>
+                <field name="active"/>
+                <field name="kanban_dashboard_graph"/>
+                <field name="count_need_sync_product"/>
+                <field name="count_no_sync_product"/>
+                <field name="count_need_sync_category"/>
+                <field name="count_no_sync_category"/>
+                <field name="count_need_invoice"/>
+                <field name="count_need_delivery"/>
+                <field name="count_no_sync_attribute"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                            <t t-value="record.item_name.raw_value" t-set="itmetype"/>
+                            <t t-call="ConnectorTop"/>
+                            <div class="container o_kanban_card_content">
+                                <div class="row o_kanban_card_upper_content">
+                                    <t t-if="itmetype == 'category'"
+                                      t-call="ConnectorCategory"/>
+                                    <t t-if="itmetype == 'product'"
+                                        t-call="ConnectorProduct"/>
+                                    <t t-if="itmetype == 'order'"
+                                        t-call="ConnectorOrder"/>
+                                    <t t-if="itmetype == 'partner'"
+                                        t-call="ConnectorPartner"/>
+                                    <t t-if="itmetype == 'attribute'"
+                                        t-call="ConnectorAttribute"/>
+                                    <div t-if="itmetype == 'general' || itmetype == 'situation'" class="row">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 o_kanban_primary_bottom">
+                                        <t t-call="ConnectorBarGraph"/>
+                                    </div>
+                                    <div class="col-12 o_kanban_primary_bottom" style="margin-bottom:5px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                <t t-call="ConnectorMoreDashboard"/>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ConnectorTop">
+                        <div t-attf-class="o_kanban_card_header">
+                            <div class="o_kanban_card_header_title">
+                                <div class="row container">
+                                    <div class='col-1'>
+                                        <t t-if="itmetype == 'product'"><i class='fa fa-cube'/></t>
+                                        <t t-if="itmetype == 'category'"><i class='fa fa-sitemap'/></t>
+                                        <t t-if="itmetype == 'order'"><i class='fa fa-file-text-o'/></t>
+                                        <t t-if="itmetype == 'attribute'"><i class='fa fa-file-picture-o'/></t>
+                                        <t t-if="itmetype == 'partner'"><i class='fa fa-handshake-o'/></t>
+                                    </div>
+                                    <div class="o_primary col-11">
+                                        <a type="object" name="open_action" class="field_name"><field name="name"/></a>
+                                        <div class="o_secondary"><field name="instance_id"/></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="o_kanban_manage_button_section">
+                                <a class="o_kanban_manage_toggle_button" href="#"><i
+                                    class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ConnectorMoreDashboard">
+                        <div class="row">
+                             <div t-if="(itmetype != 'attribute' and itmetype != 'category')"
+                                class="col-xs-4 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="o_kanban_card_manage_title">
+                                    <span >View</span>
+                                </div>
+                                <div t-if="itmetype == 'product'">
+                                    <a type="object"
+                                       name="open_view_rec"
+                                       context="{
+                                        'rec_type': 'config',
+                                        'res_model' : 'connector.template.mapping',
+                                        }">
+                                       Configurable Products
+                                    </a>
+                                </div>
+                                <div t-if="itmetype == 'product'">
+                                    <a type="object"
+                                       name="open_view_rec"
+                                       context="{
+                                        'rec_type': 'simple',
+                                        'res_model' : 'connector.template.mapping',
+                                        }">
+                                       Simple Products
+                                    </a>
+                                </div>
+                                <div t-if="itmetype == 'order'">
+                                    <a type="object"
+                                       name="open_order_view_rec"
+                                       context="{
+                                        'rec_type': 'draft',
+                                        'res_model' : 'connector.order.mapping',
+                                        }">
+                                       Draft Orders
+                                    </a>
+                                </div>
+                                <div t-if="itmetype == 'order'">
+                                    <a type="object"
+                                       name="open_order_view_rec"
+                                       context="{
+                                        'rec_type': 'sale',
+                                        'res_model' : 'connector.order.mapping',
+                                        }">
+                                       Confirm Orders
+                                    </a>
+                                </div>
+                                <div t-if="itmetype == 'order'">
+                                    <a type="object"
+                                       name="open_order_view_rec"
+                                       context="{
+                                        'rec_type': 'cancel',
+                                        'res_model' : 'connector.order.mapping',
+                                        }">
+                                       Cancel Orders
+                                    </a>
+                                </div>
+                                <div t-if="itmetype == 'partner'">
+                                    <a type="object"
+                                       name="open_view_rec"
+                                       context="{
+                                        'rec_type': 'partner',
+                                        'res_model' : 'connector.partner.mapping',
+                                        }">
+                                       Partner
+                                    </a>
+                                </div>
+                                <div t-if="itmetype == 'partner'">
+                                    <a type="object"
+                                       name="open_view_rec"
+                                       context="{
+                                        'rec_type': 'address',
+                                        'res_model' : 'connector.partner.mapping',
+                                        }">
+                                       Partner Address
+                                    </a>
+                                </div>
+                            </div>
+
+                             <div class="col-xs-4 o_kanban_card_manage_section o_kanban_manage_new">
+                                <div class="o_kanban_card_manage_title">
+                                    <span>New</span>
+                                </div>
+                                <div>
+                                    <a type="object" name="create_new_rec">
+                                        <span t-if="itmetype == 'product'">Product</span>
+                                        <span t-if="itmetype == 'order'">Order</span>
+                                        <span t-if="itmetype == 'category'">Category</span>
+                                        <span t-if="itmetype == 'partner'">Partner</span>
+                                        <span t-if="itmetype == 'attribute'">Product Attribute</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                             <div t-if="(itmetype != 'attribute' and itmetype != 'partner')"  class="col-xs-4 o_kanban_card_manage_section o_kanban_manage_reports">
+                                <div class="o_kanban_card_manage_title">
+                                    <span>Reports</span>
+                                </div>
+                                <div>
+                                    <a type="object"
+                                        context="{'r_type': 'success'}"
+                                        name="show_report">
+                                        Successful
+                                    </a>
+                                </div>
+                                <div>
+                                    <a type="object"
+                                       context="{'r_type': 'unsuccess'}"
+                                       name="show_report">
+                                        Un-Successful
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row o_kanban_card_settings" >
+                            <div t-if="widget.editable"
+                                 class="col-xs-6 o_project_kanban_colorpicker"
+                                 style="margin-top:50px">
+                                <ul class="oe_kanban_colorpicker" data-field="color"/>
+                            </div>
+                            <div class="col-xs-6 text-right"
+                                 style="margin-top:50px">
+                                <a href="https://webkul.com/blog/magento-openerp-bridge/#wkid2"
+                                   target="_blank"
+                                   >
+                                   Need Help?
+                                </a>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ConnectorProduct">
+                        <div class='container-fluid'>
+                            <div class='col-12'>
+                                <div class='row view_padding'>
+                                    <div class='col-6'>
+                                        <span class='kanban_head'>Total Product(s):</span>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Need To Update : </span>
+                                                    <button type="object"
+                                                        name="action_open_update_records"
+                                                        context="{
+                                                            'map_model':'connector.template.mapping',
+                                                            }"
+                                                        class="btn btn-primary button_data">
+                                                        <t t-esc="record.count_need_sync_product.value"/> 
+                                                    </button>
+                                                </div>
+                                            </div>              
+                                        </div>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Need To Export : </span>
+                                                    <button type="object"
+                                                        name="action_open_export_records"
+                                                        context="{
+                                                        'core_model':'product.template',
+                                                        'map_model':'connector.template.mapping',
+                                                        'field_name':'name',
+                                                        }"
+                                                        class="btn btn-primary button_data">
+                                                        <t t-esc="record.count_no_sync_product.value"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-6 total_mapped'>
+                                        <span class='button_view'>Total Mapped : </span>
+                                        <button type="object"
+                                            name="get_action_mapped_records"
+                                            context="{
+                                                'map_model':'connector.template.mapping',
+                                                }"
+                                            class="btn btn-primary button_data">
+                                            <field name="count_mapped_records"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ConnectorCategory">
+                        <div class='container-fluid'>
+                            <div class='col-12'>
+                                <div class='row view_padding'>
+                                    <div class='col-6'>
+                                        <span class='kanban_head'>Total Category:</span>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Need To Update : </span>
+                                                    <button type="object"
+                                                            name="action_open_update_records"
+                                                            context="{
+                                                                'map_model':'connector.category.mapping',
+                                                                }"
+                                                            class="btn btn-primary button_data">
+                                                            <t t-esc="record.count_need_sync_category.value"/>
+                                                    </button>
+                                                </div>
+                                            </div>              
+                                        </div>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Need To Export : </span>
+                                                    <button type="object"
+                                                        name="action_open_export_records"
+                                                        context="{
+                                                            'core_model':'product.category',
+                                                            'map_model':'connector.category.mapping',
+                                                            'field_name':'name',
+                                                            }"
+                                                        class="btn btn-primary button_data">
+                                                        <t t-esc="record.count_no_sync_category.value"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <div class='col-6 total_mapped'>
+                                        <span class='button_view'>Total Mapped : </span>
+                                        <button type="object"
+                                            name="get_action_mapped_records"
+                                            context="{
+                                                'map_model':'connector.category.mapping',
+                                                }"
+                                            class="btn btn-primary button_data">
+                                            <field name="count_mapped_records"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </t>
+
+                    <t t-name="ConnectorOrder">
+                        <div class='container-fluid'>
+                            <div class='col-12'>
+                                <div class='row view_padding'>
+                                    <div class='col-6'>
+                                        <span class='kanban_head'>Total Orders(s):</span>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Invoiced: </span>
+                                                    <button type="object"
+                                                        name="action_open_order_need"
+                                                            context="{
+                                                                'action':'invoice',
+                                                                }"
+                                                            class="btn btn-primary button_data_new">
+                                                        <field name="count_invoiced_records"/>
+                                                    </button>
+                                                </div>  
+                                            </div>              
+                                        </div>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Delivered:</span>
+                                                    <button type="object"
+                                                        name="action_open_order_need"
+                                                        context="{
+                                                            'action':'delivery',
+                                                            }"
+                                                        class="btn btn-primary button_data_new">
+                                                        <field name="count_invoiced_records"/>
+                                                    </button>
+                                                </div>
+                                            </div>              
+                                        </div>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                    <span class='button_view'>Total Mapped : </span>
+                                                    <button type="object"
+                                                        name="get_action_mapped_records"
+                                                            context="{
+                                                            'map_model':'connector.order.mapping',
+                                                                }"
+                                                        class="btn btn-primary button_data_new">
+                                                        <field name="count_mapped_records"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-6 total_mapped'>
+                                        <div class='col-12'>
+                                            <span class='button_view'>Need To Invoice(30 Days):</span>
+                                            <button type="object"
+                                                name="action_open_order_need"
+                                                context="{
+                                                    'action':'invoice',
+                                                    }"
+                                                class="btn btn-primary button_data_new">
+                                                <t t-esc="record.count_need_invoice.value"/>
+                                            </button>
+                                        </div>
+                                        <div class='col-12'>
+                                            <span class='button_view'>Need To Delivered(30 Days):</span>
+                                            <button type="object"
+                                                name="action_open_order_need"
+                                                context="{
+                                                    'action':'delivery',
+                                                    }"
+                                                class="btn btn-primary button_data_new">
+                                                <t t-esc="record.count_need_delivery.value"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-name="ConnectorPartner">
+                        <div class='container-fluid'>
+                            <div class='col-12'>
+                                <span class='kanban_head'>Total Partner(s):</span>
+                            </div>
+                            <div class='col-12'>
+                                <div class='row view_padding'>
+                                    <div class='col-12'>
+                                        <span class='button_view'>Total Mapped : </span>
+                                        <button type="object"
+                                            name="get_action_mapped_records"
+                                            context="{
+                                                'map_model':'connector.partner.mapping',
+                                                }"
+                                            class="btn btn-primary button_data">
+                                            <field name="count_mapped_records"/>
+                                        </button>
+                                    </div>  
+                                </div>              
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ConnectorAttribute">
+                        <div class='container-fluid'>
+                            <div class='col-12'>
+                                <div class='row view_padding'>
+                                    <div class='col-6'>
+                                        <span class='kanban_head'>Total Attribute(s):</span>
+                                        <div class='col-12'>
+                                            <div class='row view_padding'>
+                                                <div class='col-12'>
+                                                <span>Need To Export : </span>
+                                                    <button type="object"
+                                                        name="action_open_export_records"
+                                                        context="{
+                                                            'core_model':'product.attribute',
+                                                            'map_model':'connector.attribute.mapping',
+                                                            'field_name':'name',
+                                                            }"
+                                                        class="btn btn-primary button_data">
+                                                    <t t-esc="record.count_no_sync_attribute.value"/>
+                                                    </button>
+                                                </div>  
+                                            </div>              
+                                        </div>
+                                    </div>
+                                    <div class='col-6 total_mapped'>
+                                        <span class='button_view'>Total Mapped : </span>
+                                        <button type="object"
+                                            name="get_action_mapped_records"
+                                            context="{
+                                                    'map_model':'connector.attribute.mapping',
+                                                    }"
+                                            class="btn btn-primary button_data">
+                                            <field name="count_mapped_records"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ConnectorBarGraph">
+                        <div class="o_connector_kanban_graph_section">
+                            <field name="kanban_dashboard_graph" graph_type="bar" widget="dashboard_graph" color="red"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- <record id="connector_dashboard_view_search" model="ir.ui.view">
+        <field name="name">connector.dashboard.search</field>
+        <field name="model">connector.dashboard</field>
+        <field name="arch" type="xml">
+            <search string="Ecommerce Search">
+                <field name="name" string="Entity"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Channel" name="group_by_ecomm" context="{'group_by':'ecommerce_channel'}"/>
+                    <filter string="Instance" name="group_by_instance" context="{'group_by':'instance_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="item_name" select="multi"  string="Ecomm Channel" icon="fa-cutlery" color="#875A7B"/>
+                    <field name="active" select="multi"  string="Instnace" icon="fa-truck"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record> -->
+
+    <record id="open_connector_dashboard_kanban" model="ir.actions.act_window">
+        <field name="name">Ecomm Dashboard</field>
+        <field name="res_model">connector.dashboard</field>
+        <field name="view_mode">kanban</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="connector_dashboard_kanban_view"/>
+        <!-- <field name="search_view_id" ref="connector_dashboard_view_search"/> -->
+        <field name="context">{'search_default_dashboard':1}</field>
+        <field name="domain">[('active', '=', True)]</field>
+        <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            </p>
+        </field>
+    </record>
+
+</odoo>

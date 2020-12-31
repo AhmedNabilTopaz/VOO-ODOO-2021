@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+
+    <!--~~=========== Ecomm Product Attribute Mapping ======================~~~-->
+
+        <record id="connector_attribute_form" model="ir.ui.view">
+            <field name="name">connector.attribute.mapping.form</field>
+            <field name="model">connector.attribute.mapping</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Dimension Type" create="false" edit="false">
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <newline/>
+                        <field name="ecomm_id" readonly="1"/>
+                        <field name="odoo_id" readonly="1"/>
+                        <field name="ecomm_attribute_code" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="connector_attribute_tree" model="ir.ui.view">
+            <field name="name">connector.attribute.mapping.tree</field>
+            <field name="model">connector.attribute.mapping</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree create="false" string="Product Attribute">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="odoo_id"/>
+                    <field name="ecomm_id"/>
+                    <field name="ecomm_attribute_code" readonly="1"/>
+                    <field name="instance_id" readonly="1"/>
+                    <field name="ecommerce_channel" readonly="1"/>
+                    <field name="created_by" readonly="1"/>
+                    <field name="create_date" readonly="1"/>
+                    <field name="write_date" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+            <!-- Search View for Magento Product Attribute  -->
+        <record id="connector_attribute_search" model="ir.ui.view">
+            <field name="name">connector.attribute.mapping.search</field>
+            <field name="model">connector.attribute.mapping</field>
+            <field name="arch" type="xml">
+                <search string="Attribute">
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="odoo_id"/>
+                    <field name="ecomm_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Channel" name="group_by_ecomm" context="{'group_by':'ecommerce_channel'}"/>
+                        <filter string="Instance" name="group_by_instance" context="{'group_by':'instance_id'}"/>
+                        <filter string="Created By" name="createby" domain="[]" context="{'group_by':'created_by'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="connector_attribute_action" model="ir.actions.act_window">
+            <field name="name">Ecomm Product Attribute</field>
+            <field name="res_model">connector.attribute.mapping</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_group_by_ecomm":1,"search_default_group_by_instance":1}</field>
+            <field name="view_id" ref="connector_attribute_tree"/>
+            <field name="search_view_id" ref = "connector_attribute_search"/>
+        </record>
+    </data>
+</odoo>

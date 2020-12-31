@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+        <!-- Ecomm synchronization -->
+        <record id="connector_synchronization_form" model="ir.ui.view">
+            <field name="name">connector.snippet.form</field>
+            <field name="model">connector.snippet</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false" save="false" string="Ecomm Synchronization" >
+                    <header>
+                        <separator colspan="5" string="Ecomm Synchronization"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <p>
+                                <button type="object" name="open_configuration" string="View Connection" icon="fa-cogs" class="oe_inline oe_link"/>
+                                <label for="id" string="Start bulk synchronization using below buttons."/>
+                            </p>
+                        </div><br/>
+                         <group name="bulk_opr" col="3">
+                            <label for="id" string="Export Attributes and Values"/>
+                                <button icon="fa-th-list"
+                                                name="%(id_ecom_attribute_action)d"
+                                                string="Export All Attributes and their Values"
+                                                type="action"
+                                                class="oe_highlight wk_sync_button"
+                                                help="Export / Update Attribute and their Values to Ecomm"/>
+
+                                <newline/>
+                            <label for="id" string="Synchronize Products"/>
+                                <button icon="fa-refresh"
+                                                class="oe_highlight wk_sync_button"
+                                                name="%(id_ecom_product_action)d"
+                                                string="Synchronize Products"
+                                                type="action"
+                                                help="Export/Update products Ecomm"/>
+                                <newline/>                            
+
+                            <label for="id" string="Synchronize Categories"/>
+                                <button icon="fa-sitemap"
+                                                class="oe_highlight wk_sync_button"
+                                                name="%(id_ecom_category_action)d"
+                                                string="Synchronize Categories"
+                                                type="action"
+                                                help="It'll Export/Update All Odoo Category at Ecomm."/>
+                            <newline/>
+                            <label for="id" string="Reset Mapping"/>
+                                <button icon="fa-trash-o"
+                                            class="oe_highlight wk_sync_button"
+                                            name="%(id_ecom_reset_action)d"
+                                            type="action"
+                                            string="Reset All Mapping"
+                                            help="Warning It will reset(delete) All Base Mappind Data From Odoo"/>
+                            
+                        </group>
+                        <div class="oe_inline">
+                            <separator class="wk_separator" string="NOTE :"/>
+                            <h4 class="wk_info">
+                                <ul style="list-style-type:circle">
+                                    <li>
+                                        For best practice please first sync all attribute sets from your Magento site.
+                                    </li><br/>
+                                    <li>
+                                        After that click on <b>"Export All Attributes and  their Values"</b>.
+                                    </li><br/>
+                                    <li>
+                                        Before starting product synchronization,
+                                            it's highly recommended to do all <b>"Attribute Synchronization"</b>.
+                                    </li><br/>
+                                    <li>
+                                        If all attributes are already synced and assigned then
+                                            no need to do attribute sync operation.
+                                    </li>
+                                </ul>
+                            </h4>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="connector_synchronization_action" model="ir.actions.act_window">
+            <field name="name">Ecomm Synchronization</field>
+            <field name="res_model">connector.snippet</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="connector_synchronization_form"/>
+        </record>
+</odoo>

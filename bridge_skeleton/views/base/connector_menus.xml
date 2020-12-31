@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+
+        <!--     Connector Menu      -->
+        <menuitem   id="connector_parent_menu" 
+                    name="Ecomm Odoo Bridge" groups="bridge_skeleton.group_connector_manager"/>
+                <menuitem   id="menu_connector_dash" 
+                            name="Dashboard" parent="bridge_skeleton.connector_parent_menu"
+                            action="bridge_skeleton.open_connector_dashboard_kanban" sequence="1"/>
+                <menuitem   id="menu_mapping_id" 
+                            name="Mapping" parent="bridge_skeleton.connector_parent_menu" sequence="2"/>
+                        <menuitem   id="menu_connector_category" 
+                                    name="Category Mapping" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_category_tree_action" sequence="4"/>
+                        <menuitem   id="menu_connector_attribute" 
+                                    name="Product Attribute" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_attribute_action" sequence="8"/>
+                        <menuitem   id="menu_connector_option" 
+                                    name="Product Attribute Value" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_option_action" sequence="12"/>
+                        <menuitem   id="menu_connector_template" 
+                                    name="Product Template Mapping" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_product_template_action" sequence="16"/>
+                        <menuitem   id="menu_connector_product" 
+                                    name="Product Mapping" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_product_tree_action" sequence="20"/>
+                        <menuitem   id="menu_connector_partner" 
+                                    name="Customer Mapping" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_customer_tree_action" sequence="24"/>
+                        <menuitem   id="menu_connector_order" 
+                                    name="Sales Order Mapping" parent="bridge_skeleton.menu_mapping_id" 
+                                    action="bridge_skeleton.connector_order_tree_action" sequence="28"/>
+                <menuitem   id="menu_connector_history" 
+                            name="History" parent="bridge_skeleton.connector_parent_menu" sequence="5" />
+                        <menuitem   id="menu_connector_sync_history" 
+                                    name="Synchronisation History" parent="bridge_skeleton.menu_connector_history" 
+                                    action="bridge_skeleton.connector_sync_history_action"/>
+                <menuitem   id="menu_connector_config" 
+                            name="Configuration" parent="bridge_skeleton.connector_parent_menu" sequence="7"/>
+                        <menuitem   id="menu_connector_instance" 
+                                    name="Connection Instance" parent="bridge_skeleton.menu_connector_config" 
+                                    action="bridge_skeleton.connector_instance_tree_action" sequence="2"/>
+    </data>
+</odoo>
+

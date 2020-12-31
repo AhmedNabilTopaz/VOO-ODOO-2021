@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+        <!-- Connector Instance Configuration -->
+        <record id="connector_instance_form" model="ir.ui.view">
+            <field name="name">connector.instance.form</field>
+            <field name="model">connector.instance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Connection Instance" class="o_connector_wk">
+                    <header>
+                        <button name="test_connection"
+                            type='object' 
+                            icon="fa-pencil-square-o" 
+                            class="oe_highlight o_wow o_connector_wk_test" 
+                            string='Test Connection'/>
+                    </header>
+                        <sheet>
+                            <div class="oe_button_box" name="button_box">
+                                <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                                    <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                                </button>
+                            </div>
+                            <widget name="web_ribbon" text="Connected"
+                                attrs="{'invisible': [('connection_status','!=', True)]}"/>
+                            <widget name="web_ribbon" text="Not Connected" bg_color="bg-danger"
+                                attrs="{'invisible': ['|',('connection_status','!=', False),('status','==', '')]}"/>
+                            <field name="connection_status" invisible="True"/>
+                            <div class="badge badge-success" attrs="{'invisible': [('connection_status','!=', True)]}">
+                                success
+                            </div>
+                            <div class="badge badge-danger"
+                                attrs="{'invisible': ['|',('connection_status','!=', False),('status','==', '')]}">
+                                error
+                            </div>
+
+                            <h3><field name="status"/></h3>
+                            <div class="oe_horizontal_separator oe_clear ">
+                                <separator string="Ecomm API Settings"/>
+                            </div>
+                            <group>
+                                <label for="name"/>
+                                <b class="o_form_required"><field name="name" colspan="4" placeholder="Example: http://myecomm.com"/></b>
+                                <field name="ecomm_type" style="width:30%"/>
+                                <field name="credential"/>
+                                <field name="correct_mapping"/>
+                            </group>
+                            <notebook>
+                                <page string="API Credentials" attrs="{'invisible': [('credential','!=', True)]}">
+                                    <h2 style="margin-top: 10px !important;background-color: #e9ecef;padding-left: 8px;">
+                                        API Credentials
+                                    </h2>
+                                    <div id="api_reference">
+                                    </div>
+                                    <div class="row mt16 o_settings_container">
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_right_pane">
+                                                <label string="API User Name" for="user"/>
+                                                <div>
+                                                        <field name="user" placeholder="Example: apiuser"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_right_pane">
+                                                <label string=" API Password" for="pwd"/>
+                                                <div>
+                                                        <field name="pwd" placeholder="Example: apipassword"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </page>
+                                <page string="Sales Settings" name="sales_setting" attrs="{'invisible': [('credential','!=', True)]}">
+                                    <h2 style="margin-top: 10px !important;background-color: #e9ecef;padding-left: 8px;">
+                                        Ecomm Sales Order
+                                    </h2>
+                                    <p class="text-muted" style="margin-left:5%">
+                                    Default Configuration For Sale Order used by Connector,
+                                    when exporting Sale Order from Ecomm to Odoo.
+                                    </p>
+                                    <div class="row mt16 o_settings_container">
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_right_pane">
+                                                <label string="Ecomm Payment Term" for="connector_payment_term"/>
+                                                <div class="text-muted">
+                                                    Payment term used in ecomm order
+                                                </div>
+                                                <div class="text-muted">
+                                                    <b><field name="connector_payment_term"
+                                                        options="{'no_create' : True}"/></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane"/>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Ecomm Sales Team" for="connector_sales_team"/>
+                                                <div class="text-muted">
+                                                    Sales team used for ecomm order
+                                                </div>
+                                                <div class="text-muted">
+                                                    <b><field name="connector_sales_team"
+                                                        options="{'no_create' : True}"/></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane"/>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Ecomm Salesperson" for="connector_sales_person"/>
+                                                <div class="text-muted">
+                                                    Salesperson used for ecomm order
+                                                </div>
+                                                <div class="text-muted">
+                                                    <b><field name="connector_sales_person"
+                                                        options="{'no_create' : True}"/></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 style="margin-top: 10px !important;background-color: #e9ecef;padding-left: 8px;">
+                                        Sales Order Operation
+                                    </h2>
+                                    <p class="text-muted" style="margin-left:5%">
+                                        Default Configuration used by Connector,
+                                        Which enables to do Sale Order Opreartion from Odoo to Ecomm.
+                                    </p>
+                                    <div class="row mt16 o_settings_container">
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane">
+                                                <b><field name="connector_sale_order_invoice"/></b>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Invoice Status" for="connector_sale_order_invoice"/>
+                                                <div class="text-muted">
+                                                    enable for update invoice status at Ecomm
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane">
+                                                <b><field name="connector_sale_order_shipment"/></b>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Shipment Status" for="connector_sale_order_shipment"/>
+                                                <div class="text-muted">
+                                                    enable for update shipment status at Ecomm
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane">
+                                                <b><field name="connector_sale_order_cancel"/></b>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Cancel Status" for="connector_sale_order_cancel"/>
+                                                <div class="text-muted">
+                                                    enable for update cancel status at Ecomm
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane">
+                                                <b><field name="notify"/></b>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Notify Customer" for="notify"/>
+                                                <div class="text-muted">
+                                                    enable to notify customer by email
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </page>
+                                <page string="Other Default Settings" name="connector_default_setting">
+                                    <h2 style="margin-top: 10px !important;background-color: #e9ecef;padding-left: 8px;">
+                                        Connector Default Configurations
+                                    </h2>
+                                    <p class="text-muted" style="margin-left:5%">
+                                    Default Configuration For Ecomm Store, Language, Category 
+                                    used by connector in data synchronization.
+                                    </p>
+                                    <div class="row mt16 o_settings_container">
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane"/>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Default Language" for="language"/>
+                                                <div>
+                                                    <field name="language"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane"/>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Default Category" for="category"/>
+                                                <div>
+                                                    <b><field name="category"
+                                                        options="{'no_create' : True}"/></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 style="margin-top: 10px !important;background-color: #e9ecef;padding-left: 8px;">
+                                        Stock Configuration
+                                    </h2>
+                                    <p class="text-muted" style="margin-left:5%">
+                                        Default Configuration used by Connector for Stock Update
+                                    </p>
+                                    <div class="row mt16 o_settings_container">
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane"/>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Warehouse" for="warehouse_id"/>
+                                                <div class="text-muted">
+                                                    Default Warehouse
+                                                </div>
+                                                <div>
+                                                    <b><field name="warehouse_id"
+                                                        options="{'no_create' : True}"/></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane" />
+                                            <div class="o_setting_right_pane">
+                                                <label string="Inventory Update" for="inventory_sync"/>
+                                                <div class="text-muted">
+                                                    If enable stock will sync with product from Odoo to Ecomm.
+                                                </div>
+                                                <div class="content-group">
+                                                    <div class="mt16">
+                                                        <field name="inventory_sync" widget="radio"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 o_setting_box">
+                                            <div class="o_setting_left_pane"/>
+                                            <div class="o_setting_right_pane">
+                                                <label string="Stock Based On" for="connector_stock_action"/>
+                                                <div class="text-muted">
+                                                    Product Quantity will sync According to
+                                                    selected option
+                                                    Quantity on hand/forecast Field.
+                                                </div>
+                                                <div class="content-group">
+                                                    <div class="mt16">
+                                                        <field name="connector_stock_action" widget="radio"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+
+        <record id="connector_instance_tree" model="ir.ui.view">
+            <field name="name">connector.instance.tree</field>
+            <field name="model">connector.instance</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Connection Instances" class="o_connector_wk">
+                    <field name="name"/>
+                    <field name="user"/>
+                    <field name="active"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="connector_instance_search" model="ir.ui.view">
+            <field name="name">connector.instance.search</field>
+            <field name="model">connector.instance</field>
+            <field name="arch" type="xml">
+                <search string="Connections">
+                    <filter string="Inactive Connection" name="inactive" domain="[('active','=',False)]" help="Inactive Connection"/>
+                    <filter string="Successful" name="success" domain="[('connection_status','=',True)]" help="Successful Connection"/>
+                    <filter string="Error" name="error" domain="[('connection_status','=',False)]" help="Error in Connection"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Channel" name="group_by_ecomm" context="{'group_by':'ecomm_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="connector_instance_tree_action" model="ir.actions.act_window">
+            <field name="name">Connector Connection</field>
+            <field name="res_model">connector.instance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_group_by_ecomm":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create oe_link">
+                    Click to define a new Ecomm connection.
+                </p>
+            </field>
+            <field name="view_id" ref="connector_instance_tree"/>
+            <field name="search_view_id" ref = "connector_instance_search"/>
+        </record>
+
+    </data>
+</odoo>

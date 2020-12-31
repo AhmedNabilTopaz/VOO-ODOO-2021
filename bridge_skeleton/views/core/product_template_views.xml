@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <record id="ecomm_product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.view.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Ecommerce Channel Data" name="ecomm_channel_data">
+                    <separator string="Ecommerce Extra Categories" colspan="2"/>
+                    <newline/>
+                    <field name="connector_categ_ids" nolabel="1" readonly='0'>
+                        <tree>
+                            <field name="instance_id"/>
+                            <field name="ecommerce_channel"/>
+                            <field name="categ_ids" widget="selection"/>
+                        </tree>
+                    </field>
+                    <field name="config_sku" attrs="{'invisible':[('product_variant_count', '&lt;=', 1)]}"/>
+                    <separator string="Ecommerce Mapping" colspan="2"/>
+                    <field name="connector_mapping_ids" readonly='1' nolabel='1'/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

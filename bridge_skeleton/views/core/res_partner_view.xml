@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+        <record id="form_view_partner_fix_1" model="ir.ui.view">
+            <field name="name">res.partner.form.view.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page autofocus="autofocus" position="attributes">
+                    <attribute name="attrs">{'invisible': [('parent_id', '!=', False)]}</attribute>
+                </page>
+
+                <xpath expr="//notebook/page/field[@name='child_ids']/form/sheet/group/group/field[@name='comment']" position="after">
+                    <label for="wk_company"/>
+                    <div name="div_company">
+                        <field class="oe_inline" name="wk_company" />
+                    </div>
+                </xpath>
+
+                <field name="website" position="after">
+                    <field name="wk_company" placeholder="eg. webkul software"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name"
+                    filter_domain="['|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('wk_company','ilike',self)]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

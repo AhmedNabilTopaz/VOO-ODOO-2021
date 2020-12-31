@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+
+        <!--====================    Synchronization History ==================-->
+
+        <record id="connector_sync_history_form" model="ir.ui.view">
+            <field name="name">connector.sync.history.form</field>
+            <field name="model">connector.sync.history</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Ecomm synchronization History" create="false" edit="false">
+                    <group>
+                        <field name="status" readonly="1"/>
+                        <field name="action_on" readonly="1"/>
+                        <field name="action" readonly="1"/>
+                        <field name="create_date" readonly="1"/>
+                        <field name="error_message" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="connector_sync_history_tree" model="ir.ui.view">
+            <field name="name">connector.sync.history.tree</field>
+            <field name="model">connector.sync.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Ecomm synchronization History" create="false" decoration-danger="status=='no'" decoration-success="status=='yes'">
+                    <field name="status" />
+                    <field name="action_on" />
+                    <field name="action" />
+                    <field name="instance_id" readonly="1"/>
+                    <field name="ecommerce_channel" readonly="1"/>
+                    <field name="create_date" />
+                    <field name="error_message" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="connector_sync_history_search" model="ir.ui.view">
+            <field name="name">connector.sync.history.search</field>
+            <field name="model">connector.sync.history</field>
+            <field name="arch" type="xml">
+                <search string="History">
+                    <group expand="0" string="Group By">
+                        <filter string="Channel" name="group_by_ecomm" context="{'group_by':'ecommerce_channel'}"/>
+                        <filter string="Instance" name="group_by_instance" context="{'group_by':'instance_id'}"/>
+                        <filter string="Entity" name="group_by_entity" domain="[]" context="{'group_by':'action_on'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="connector_sync_history_action" model="ir.actions.act_window">
+            <field name="name">Ecomm Synchronization History</field>
+            <field name="res_model">connector.sync.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_group_by_ecomm":1,"search_default_group_by_instance":1,"search_default_group_by_entity":1}</field>
+            <field name="search_view_id" ref="connector_sync_history_search"/>
+            <field name="view_id" ref="connector_sync_history_tree"/>
+        </record>
+    </data>
+</odoo>

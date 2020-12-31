@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+
+    <template id="connector_main_container">
+        <div class="o_onboarding_container collapse show">
+            <div class="o_onboarding classes">
+                <div class="o_onboarding_wrap">
+                    <div  class="o_connector_dashboard row">
+                        <div t-if="connrecs and connrecs['active'] != 0" class="col">
+                            <div class="o_welcome_image">
+                                <table>
+                                    <tr t-if="(connrecs and connrecs['totalcon'] == 0)"  style="height:30px;">
+                                        <td class="o_main2" style="margin-left:250px">
+                                                <a  data-reload-on-close="true"
+                                                    type="action" role="button"
+                                                    data-method="open_bulk_synchronization"
+                                                    data-model="connector.dashboard"
+                                                    name="bridge_skeleton.connector_instance_tree_action"
+                                                    data-extra="new">
+                                                        Configure Connection
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="bridge_skeleton_dashboard_onboarding_panel" name="bridge_skeleton.dashboard.onboarding.panel">
+        <t t-call="bridge_skeleton.connector_main_container"/>
+    </template>
+
+
+</odoo>

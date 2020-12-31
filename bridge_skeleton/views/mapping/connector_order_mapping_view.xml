@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+
+
+        <record id="connector_order_form" model="ir.ui.view">
+            <field name="name">connector.order.mapping.form</field>
+            <field name="model">connector.order.mapping</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Order Mapping" create="false" edit="false">
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="ecommerce_channel" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="odoo_order_id" readonly="1"/>
+                        <field name="ecommerce_order_id" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="connector_order_tree" model="ir.ui.view">
+            <field name="name">connector.order.mapping.tree</field>
+            <field name="model">connector.order.mapping</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree create="false" string="Ecomm Order Mapping">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="ecommerce_channel"/>
+                    <field name="odoo_order_id"/>
+                    <field name="ecommerce_order_id"/>
+                    <field name="order_status"/>
+                    <field name="is_invoiced"/>
+                    <field name="is_shipped"/>
+                    <field name="instance_id" readonly="1"/>
+                    <field name="ecommerce_channel" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="connector_order_search" model="ir.ui.view">
+            <field name="name">connector.order.mapping.search</field>
+            <field name="model">connector.order.mapping</field>
+            <field name="arch" type="xml">
+                <search string="Order">
+                    <field name="name" filter_domain="['|',('name','ilike',self),('ecommerce_channel','ilike',self)]"/>
+                    <field string="Ecomm Order Id" name="ecommerce_order_id" />
+                    <field string="Order Name" name="odoo_order_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Channel" name="group_by_ecomm" context="{'group_by':'ecommerce_channel'}"/>
+                        <filter string="Instance" name="group_by_instance" context="{'group_by':'instance_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="connector_order_tree_action" model="ir.actions.act_window">
+            <field name="name">Ecomm Orders Mapping</field>
+            <field name="res_model">connector.order.mapping</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_group_by_ecomm":1,"search_default_group_by_instance":1}</field>
+            <field name="view_id" ref="connector_order_tree"/>
+            <field name="search_view_id" ref = "connector_order_search"/>
+        </record>
+    </data>
+</odoo>

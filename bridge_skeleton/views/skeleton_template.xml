@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend_2" name="bridge_skeleton assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/bridge_skeleton/static/src/scss/skeleton_kanban.scss"/>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_widget.js"></script>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_view.js"></script>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_controller.js"></script>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_renderer.js"></script>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_model.js"></script>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_record.js"></script>
+            <script type="text/javascript" src="/bridge_skeleton/static/src/js/skeleton_kanban_mobile.js"></script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+        <record id="webkul_view_inherit_sale_view_bridge_skeleton" model="ir.ui.view">
+            <field name="name">Sale View Inherited</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <field name="date_order" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+                <xpath expr="//group[@name='technical']" position="replace">
+                    <group name="technical" colspan="2" class="mb-0">
+                        <label for="origin"/>
+                        <div class="oe_inline">
+                            <b><field name="ecommerce_channel"  attrs="{'invisible': [('ecommerce_channel', '=', False)]}" class="oe_inline"/></b>
+                            <label string="-" for="origin" class="oe_inline" attrs="{'invisible': [('ecommerce_channel', '=', False)]}"/>
+                            <field name="origin" class="oe_inline"/>
+                        </div>
+                      <field name="is_shipped"/>
+                      <field name="is_invoiced"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

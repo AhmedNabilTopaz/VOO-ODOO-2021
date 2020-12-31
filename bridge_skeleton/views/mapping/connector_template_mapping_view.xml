@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+
+        <!--~~======================== Template Mapping ======================~~~-->
+           <record id="connector_product_template_form" model="ir.ui.view">
+            <field name="name">connector.template.mapping.form</field>
+            <field name="model">connector.template.mapping</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Template Mapping" create="false" edit="false">
+                    <group>
+                        <field name="name" required="1" />
+                        <field name="ecomm_id" readonly="1" />
+                        <field name="odoo_id" readonly="1"/>
+                        <field name="is_variants" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="connector_product_template_tree" model="ir.ui.view">
+            <field name="name">connector.template.mapping.tree</field>
+            <field name="model">connector.template.mapping</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree create="false" string="Ecomm Product Templates"  decoration-danger="need_sync=='Yes'" >
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="odoo_id"/>
+                    <field name="ecomm_id"/>
+                    <field name="is_variants"/>
+                    <field name="instance_id" readonly="1"/>
+                    <field name="ecommerce_channel" readonly="1"/>
+                    <field name="created_by" readonly="1"/>
+                    <field name="create_date" readonly="1"/>
+                    <field name="write_date" readonly="1"/>
+                    <field name="need_sync"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="connector_product_template_search" model="ir.ui.view">
+                <field name="name">connector.template.mapping.search</field>
+                <field name="model">connector.template.mapping</field>
+                <field name="arch" type="xml">
+                    <search string="Template">
+                        <field name="name" filter_domain="[('name','ilike',self)]"/>
+                        <field name="odoo_id"/>
+                        <field name="ecomm_id"/>
+                        <group expand="0" string="Group By">
+                            <filter string="Channel" name="group_by_ecomm" context="{'group_by':'ecommerce_channel'}"/>
+                            <filter string="Instance" name="group_by_instance" context="{'group_by':'instance_id'}"/>
+                            <filter string="Is Variants" name="isvariants" domain="[]" context="{'group_by':'is_variants'}" />
+                            <filter string="Need Sync" name="needsync" domain="[]" context="{'group_by':'need_sync'}" />
+                            <filter string="Created By" name="createby" domain="[]" context="{'group_by':'created_by'}" />
+                        </group>
+                        <filter name="variants" string="Multi Variant Products" icon="terp-project" domain="[('is_variants','=','True')]" />
+                    </search>
+                </field>
+        </record>
+
+        <record id="connector_product_template_action" model="ir.actions.act_window">
+            <field name="name">Ecomm Product Template</field>
+            <field name="res_model">connector.template.mapping</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="connector_product_template_tree"/>
+            <field name="search_view_id" ref = "connector_product_template_search"/>
+            <field name="context">{"search_default_group_by_ecomm":1,"search_default_group_by_instance":1,"search_default_variants":True}</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <record id="id_synchronization_wizard_form" model="ir.ui.view">
+            <field name="name">Synchronization Wizard</field>
+            <field name="model">synchronization.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Sync">
+                    <group col='4' colspan="2">
+                        <field name="instance_id" widget="selection" required='1'/>
+                        <field name="action" invisible="context.get('reset') == True or context.get('attribute') == True"/>
+                    </group>
+                    <footer>
+                        <button name="start_attribute_synchronization"
+                                string="Synchronize Now"
+                                type="object"
+                                class="oe_highlight"
+                                invisible= "not context.get('attribute') == True"/>
+                        <button name="start_category_synchronization"
+                                string="Synchronize Now"
+                                type="object"
+                                class="oe_highlight"
+                                invisible= "not context.get('All') == True"/>
+                        <button name="start_product_synchronization"
+                                string="Synchronize Now"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="not context.get('check') == False"/>
+                        <button name="start_product_synchronization_mapping"
+                                string="Synchronize Now"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="not context.get('mapping') == False"/>
+                        <button name="start_category_synchronization_mapping"
+                                string="Synchronize Now"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="not context.get('mapping_categ') == False"/>
+                        <button name="reset_mapping"
+                                string="Reset Mapping"
+                                type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to Reset All Mappings?"
+                                invisible="not context.get('reset') == True"/>
+                        or
+                        <button string="Cancel" class='oe_link' special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    <record id="id_ecom_attribute_action" model="ir.actions.act_window">
+        <field name="name">Synchronization Attributes</field>
+        <field name="res_model">synchronization.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="id_synchronization_wizard_form"/>
+        <field name="target">new</field>
+        <field name="context">{'attribute':True}</field>
+    </record>
+
+    <record id="id_ecom_category_action" model="ir.actions.act_window">
+        <field name="name">Synchronization Categories</field>
+        <field name="res_model">synchronization.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="id_synchronization_wizard_form"/>
+        <field name="target">new</field>
+        <field name="context">{'All':True}</field>
+    </record>
+
+    <record id="id_ecom_product_action" model="ir.actions.act_window">
+        <field name="name">Synchronization Products</field>
+        <field name="res_model">synchronization.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="id_synchronization_wizard_form"/>
+        <field name="target">new</field>
+        <field name="context">{'check':False}</field>
+    </record>
+
+    <record id="id_ecom_reset_action" model="ir.actions.act_window">
+        <field name="name">Reset Mapping</field>
+        <field name="res_model">synchronization.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="id_synchronization_wizard_form"/>
+        <field name="target">new</field>
+        <field name="context">{'reset':True}</field>
+    </record>
+</odoo>
