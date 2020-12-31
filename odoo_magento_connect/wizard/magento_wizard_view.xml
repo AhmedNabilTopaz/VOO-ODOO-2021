@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="id_magento_wizard_form" model="ir.ui.view">
+        <field name="name">magento.wizard</field>
+        <field name="model">magento.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Magento">
+                <separator string="Magento Store" colspan="6"/>
+                <group>
+                    <field 
+                        name="magento_store_view" 
+                        widget='selection' 
+                        domain="[('instance_id','=',context.get('instance_id', False))]"
+                    />
+                </group>
+                <newline/>
+                <separator colspan="6"/>
+                <footer>
+                    <button name="button_select_default_magento_store" string="Select Default Magento Store" 
+                        type="object" class="oe_highlight"/>
+                    <button special="cancel" class="oe_highlight" icon="fa-archive" string="Close" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

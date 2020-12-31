@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_connector_extra_image,access_connector_extra_image,model_connector_extra_image,bridge_skeleton.group_connector_user,1,0,0,0
+access_connector_product_image_type,access_connector_product_image_type,model_connector_product_image_type,bridge_skeleton.group_connector_user,1,0,0,0
+,,,,,,,
+access_connector_extra_image_manager,Connector extra Image Manager,model_connector_extra_image,bridge_skeleton.group_connector_manager,1,1,1,1
+access_connector_product_image_type_manager,Connector Product Image Type Manager,model_connector_product_image_type,bridge_skeleton.group_connector_manager,1,1,1,1

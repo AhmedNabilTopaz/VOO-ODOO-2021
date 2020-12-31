@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+		<record id="magento_multimage_form" model="ir.ui.view">
+            <field name="name">magento.image.type.form</field>
+            <field name="model">product.image</field>
+            <field name="type">form</field>
+			<field name="inherit_id" ref="bridge_extra_image.product_inherit_image_form_view"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='instance_id']" position="after">
+					<field name="extra_image_id"/>
+					<field name="magento_product_id"/>
+					<field name="magento_image_type" widget="many2many_tags"/>
+				</xpath>
+			</field>
+        </record>
+
+	</data>
+</odoo>

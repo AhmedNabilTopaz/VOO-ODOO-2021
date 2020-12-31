@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <record id="inherit_magento_connector_product_form" model="ir.ui.view">
+        <field name="name">connector.product.mapping.form</field>
+        <field name="model">connector.product.mapping</field>
+        <field name="inherit_id" ref="bridge_skeleton.connector_product_form"/>
+        <field name="arch" type="xml">
+            <field name="ecomm_id" position="after">
+                <field name="magento_stock_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

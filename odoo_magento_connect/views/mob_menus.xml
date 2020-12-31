@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+        <!--     Attribute Set Menu      -->
+        <menuitem  id="menu_connector_attribute_set"
+            name="Magento Attribute Sets"
+            parent="bridge_skeleton.menu_connector_config"
+            action="odoo_magento_connect.magento_attribute_set_action"
+            sequence="3"/>
+    </data>
+</odoo>

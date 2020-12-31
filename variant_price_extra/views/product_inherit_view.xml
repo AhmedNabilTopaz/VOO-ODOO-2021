@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wk_variant_price_extra_easy_edit" model="ir.ui.view">
+            <field name="name">product.product.view.form.easy.inherit</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+            <field name="arch" type="xml">
+                <field name="lst_price" position="after">
+                    <label for="price_extra" string="Final Variant`s Extra Price" />
+                    <div>
+                        <span><field name="attr_price_extra" nolabel="1" class="oe_inline" /><label for="attr_price_extra" string="+" class="oe_inline"/>
+                    <field name="wk_extra_price" nolabel="1" required='1' class="oe_inline"/><label for="wk_extra_price" string="=" class="oe_inline"/>
+                    <field name="price_extra" nolabel="1" class="oe_inline" />
+                  </span>
+                    </div>
+                </field>
+            </field>
+        </record>
+        
+        <record id="wk_variant_price_extra" model="ir.ui.view">
+            <field name="name">product.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <label for="price_extra" string="Final Variant`s Extra Price" />
+                    <div>
+                        <span><field name="attr_price_extra" nolabel="1" class="oe_inline" /><label for="attr_price_extra" string="+" class="oe_inline"/>
+                    <field name="wk_extra_price" nolabel="1" required='1' class="oe_inline"/><label for="wk_extra_price" string="=" class="oe_inline"/>
+                    <field name="price_extra" nolabel="1" class="oe_inline" />
+                  </span>
+                    </div>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

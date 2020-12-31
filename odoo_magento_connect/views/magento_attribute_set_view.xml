@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <record id="magento_attribute_set_form" model="ir.ui.view">
+        <field name="name">magento.attribute.set.form</field>
+        <field name="model">magento.attribute.set</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Attribute Set Type" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="set_id" />
+                    </group>
+                    <group>
+                        <field name="instance_id"/>
+                        <field name="ecommerce_channel"/>
+                    </group>
+                    <notebook>
+                        <page string="Magento Attributes">
+                            <field name="attribute_ids" nolabel="1" colspan="2"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="magento_attribute_set_tree" model="ir.ui.view">
+        <field name="name">magento.attribute.set.tree</field>
+        <field name="model">magento.attribute.set</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree create="false" string="Product Attribute">
+                <field name="name"/>
+                <field name="set_id"/>
+                <field name="instance_id"/>
+                <field name="ecommerce_channel"/>
+                <field name="created_by" readonly="1"/>
+                <field name="create_date" readonly="1"/>
+                <field name="write_date" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+        <!-- Search View for Magento Attribute Set  -->
+    <record id="magento_attribute_set_search" model="ir.ui.view">
+        <field name="name">magento.attribute.set.search</field>
+        <field name="model">magento.attribute.set</field>
+        <field name="arch" type="xml">
+            <search string="MOB">
+                <field name="name" filter_domain="[('name','ilike',self)]"/>
+                <field name="set_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Created By" name="createby" domain="[]" context="{'group_by':'created_by'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="magento_attribute_set_action" model="ir.actions.act_window">
+        <field name="name">Magento Attribute Set</field>
+        <field name="res_model">magento.attribute.set</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="magento_attribute_set_tree"/>
+        <field name="search_view_id" ref = "magento_attribute_set_search"/>
+    </record>
+
+</odoo>

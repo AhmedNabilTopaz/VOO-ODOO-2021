@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_magento_website_user,Magento Website User,model_magento_website,bridge_skeleton.group_connector_user,1,0,0,0
+access_magento_store_user,Magento Store User,model_magento_store,bridge_skeleton.group_connector_user,1,0,0,0
+access_magento_store_view_user,Magento Store View User,model_magento_store_view,bridge_skeleton.group_connector_user,1,0,0,0
+access_magento_attribute_set_user,Magento Attribute Set User,model_magento_attribute_set,bridge_skeleton.group_connector_user,1,0,1,0
+,,,,,,,
+access_magento_website_manager,Magento Website Manager,model_magento_website,bridge_skeleton.group_connector_manager,1,1,1,1
+access_magento_store_manager,Magento Store Manager,model_magento_store,bridge_skeleton.group_connector_manager,1,1,1,1
+access_magento_store_view_manager,Magento Store View Manager,model_magento_store_view,bridge_skeleton.group_connector_manager,1,1,1,1
+access_magento_attribute_set_manager,Magento Attribute Set Manager,model_magento_attribute_set,bridge_skeleton.group_connector_manager,1,1,1,1
+,,,,,,,
+access_magento_website_public,Magento Website Public,model_magento_website,,1,1,0,0
