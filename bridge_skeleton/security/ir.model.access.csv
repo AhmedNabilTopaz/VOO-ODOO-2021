@@ -1,0 +1,32 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_connector_instance_user,Configurantion User,model_connector_instance,group_connector_user,1,0,0,0
+access_connector_attribute_mapping_user,Connector Attribute User,model_connector_attribute_mapping,group_connector_user,1,0,0,0
+access_connector_option_mapping_user,Connector Option User,model_connector_option_mapping,group_connector_user,1,0,0,0
+access_connector_category_mapping_user,Connector Category User,model_connector_category_mapping,group_connector_user,1,0,0,0
+access_connector_template_mapping_user,Connector Template User,model_connector_template_mapping,group_connector_user,1,0,0,0
+access_connector_product_mapping_user,Connector Product User,model_connector_product_mapping,group_connector_user,1,0,0,0
+access_connector_partner_mapping_user,Connector Partner User,model_connector_partner_mapping,group_connector_user,1,0,0,0
+access_connector_order_mapping_user,Connector Order User,model_connector_order_mapping,group_connector_user,1,0,0,0
+access_connector_sync_history_user,Connector History User,model_connector_sync_history,group_connector_user,1,0,0,0
+access_connector_extra_category_user,Connector Extra Category User,model_connector_extra_category,group_connector_user,1,0,0,0
+access_connector_dashboard_user,Connector Dashboard User,model_connector_dashboard,group_connector_user,1,0,0,0
+
+
+,,,,,,,
+access_connector_instance_manager,Configurantion Manager,model_connector_instance,group_connector_manager,1,1,1,1
+access_connector_attribute_mapping_manager,Connector Attribute Manager,model_connector_attribute_mapping,group_connector_manager,1,1,1,1
+access_connector_option_mapping_manager,Connector Option Manager,model_connector_option_mapping,group_connector_manager,1,1,1,1
+access_connector_category_mapping_manager,Connector Category Manager,model_connector_category_mapping,group_connector_manager,1,1,1,1
+access_connector_template_mapping_manager,Connector Template Manager,model_connector_template_mapping,group_connector_manager,1,1,1,1
+access_connector_product_mapping_manager,Connector Product Manager,model_connector_product_mapping,group_connector_manager,1,1,1,1
+access_connector_partner_mapping_manager,Connector Partner Manager,model_connector_partner_mapping,group_connector_manager,1,1,1,1
+access_connector_order_mapping_manager,Connector Order Manager,model_connector_order_mapping,group_connector_manager,1,1,1,1
+access_connector_sync_history_manager,Connector History Manager,model_connector_sync_history,group_connector_manager,1,1,1,1
+access_connector_extra_category_manager,Connector Extra Category Manager,model_connector_extra_category,group_connector_manager,1,1,1,1
+access_connector_dashboard_manager,Connector Dashboard Manager,model_connector_dashboard,group_connector_manager,1,1,1,1
+
+,,,,,,,
+access_connector_template_mapping_public,Template Mapping Public,model_connector_template_mapping,,1,1,0,0
+access_connector_product_public,Product Mapping Public,model_connector_product_mapping,,1,1,0,0
+access_connector_category_public,Category Mapping Public,model_connector_category_mapping,,1,1,0,0

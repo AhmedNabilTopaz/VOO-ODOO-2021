@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+<data noupdate="0">
+    <record model="ir.module.category" id="module_bridge_skeleton_category">
+        <field name="name">Odoo Connector</field>
+        <field name="description">Connector Applilcation</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="group_connector_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="comment">User will have an read access to the connector.</field>
+        <field name="category_id" ref="module_bridge_skeleton_category"/>
+    </record>
+
+    <record id="group_connector_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="comment">Full Access on Connector</field>
+        <field name="category_id" ref="module_bridge_skeleton_category"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+         <field name="implied_ids" eval="[(4, ref('group_connector_user'))]"/>
+    </record>
+</data>
+</odoo>
