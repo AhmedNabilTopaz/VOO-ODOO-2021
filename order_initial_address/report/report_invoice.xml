@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <data>
+        <template id="so_report_invoice_address_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//address[@t-field='o.partner_id']" position="replace">
+                <t t-if="o.customer_address">
+                    <div t-field="o.customer_address"/>
+                </t>
+                <t t-if="not o.customer_address">
+                    <address
+                        t-field  ="o.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+                    />
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <data>
+        <template id="report_deliveryslip_delivery_addr" inherit_id="stock.report_delivery_document">
+            <xpath expr="//div[@t-esc='partner']" position="replace">
+                <t t-if="o.customer_shipping_address">
+                    <div t-field="o.customer_shipping_address"/>
+                </t>
+                <t t-else="">
+                    <div
+                        t-esc    ="partner"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'
+                    />
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

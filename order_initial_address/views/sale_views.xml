@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <data>
+    	<record id="webkul_view_inherit_sale_view_order_initial_address" model="ir.ui.view">
+            <field name="name">Sale View Inherited</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="//notebook" position="inside">
+                    <page string="Initial Address">
+                        <separator string="Customer Address"/>
+                        <group>
+                            <group>
+                                <field name="customer_address" attrs="{'invisible': [('customer_address','==', ''), ('state','not in', ['draft', 'sent'])], 'readonly': [('state','not in', ['draft', 'sent'])]}"/>
+                            </group>
+                            <group>
+                                <field name="customer_billing_address" attrs="{'invisible': [('customer_billing_address','==', ''), ('state','not in', ['draft', 'sent'])], 'readonly': [('state','not in', ['draft', 'sent'])]}"/>
+                            </group>
+                            <group>
+                                <field name="customer_shipping_address" attrs="{'invisible': [('customer_shipping_address','==', ''), ('state','not in', ['draft', 'sent'])], 'readonly': [('state','not in', ['draft', 'sent'])]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

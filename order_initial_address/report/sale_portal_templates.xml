@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+	<data>
+		<template id="portal_report_sale_order" inherit_id="sale.sale_order_portal_content">
+			<xpath expr="//address[@t-field='sale_order.partner_invoice_id']" position="replace">
+				<t t-if="sale_order.customer_shipping_address and sale_order.customer_billing_address">
+					<div t-field="sale_order.customer_billing_address"/>
+				</t>
+				<t t-else="">
+					<address
+						t-field="sale_order.partner_invoice_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+					/>
+				</t>
+			</xpath>
+
+			<xpath expr="//address[@t-field='sale_order.partner_shipping_id']" position="replace">
+				<t t-if="sale_order.customer_shipping_address and sale_order.customer_billing_address">
+					<div t-field="sale_order.customer_shipping_address"/>
+				</t>
+				<t t-else="">
+					<address
+						t-field="sale_order.partner_shipping_id"
+						t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+					/>
+				</t>
+			</xpath>
+		</template>
+	</data>
+</odoo>

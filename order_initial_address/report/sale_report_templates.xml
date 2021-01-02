@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+	<data>
+		<template id="report_so_address_inherit" inherit_id="sale.report_saleorder_document">
+			<xpath expr="//t[@t-if='doc.partner_shipping_id == doc.partner_invoice_id
+                             and doc.partner_invoice_id != doc.partner_id
+                             or doc.partner_shipping_id != doc.partner_invoice_id']" position="replace">
+				<t t-if="doc.customer_billing_address
+							and doc.customer_shipping_address">
+					<strong t-if="doc.customer_shipping_address == doc.customer_billing_address">Invoicing and shipping address:</strong>
+					<strong t-if="doc.customer_shipping_address != doc.customer_billing_address">Invoicing address:</strong>
+					<div t-field="doc.customer_billing_address"/>
+					<div t-field="doc.partner_invoice_id"
+						t-options='{"widget": "contact", "fields": ["phone"], "no_marker": True, "phone_icons": True}'/>
+					<div t-if="doc.customer_shipping_address != doc.customer_billing_address" class="mt8">
+						<strong>Shipping address:</strong>
+						<div t-field="doc.customer_shipping_address"/>
+						<div t-field="doc.partner_shipping_id"
+							t-options='{"widget": "contact", "fields": ["phone"], "no_marker": True, "phone_icons": True}'/>
+					</div>
+				</t>
+				<t t-else="">
+					<t t-if="doc.partner_shipping_id == doc.partner_invoice_id
+										and doc.partner_invoice_id != doc.partner_id
+										or doc.partner_shipping_id != doc.partner_invoice_id">
+						<t t-set="information_block">
+							<strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Invoicing and shipping address:</strong>
+							<strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Invoicing address:</strong>
+							<div t-field="doc.partner_invoice_id"
+							t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+							<t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+								<strong>Shipping address:</strong>
+								<div t-field="doc.partner_shipping_id"
+									t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+							</t>
+						</t>
+					</t>
+				</t>
+			</xpath>
+			<xpath expr="//t[@t-set='address']" position="replace">
+				<t t-if="doc.customer_address">
+					<div t-field="doc.customer_address"/>
+					<div t-field="doc.partner_id.phone"/>
+					<p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'TIN'"/>: <span t-field="doc.partner_id.vat"/></p>
+				</t>
+				<t t-else="">
+					<t t-set="address">
+						<div t-field="doc.partner_id"
+							t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+						<p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p>
+					</t>
+				</t>
+			</xpath>
+		</template>
+    </data>
+</odoo>
