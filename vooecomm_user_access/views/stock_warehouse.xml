@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+	<data>
+		<record id="view_warehouse_tree" model="ir.ui.view">
+			<field name="name">pnp.stock.warehouse.tree</field>
+			<field name="model">stock.warehouse</field>
+			<field name="inherit_id" ref="stock.view_warehouse_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="inside">
+					<field name="user_id" optional="show"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_warehouse_form" model="ir.ui.view">
+			<field name="name">pnp.stock.warehouse.form</field>
+			<field name="model">stock.warehouse</field>
+			<field name="inherit_id" ref="stock.view_warehouse"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="user_id"/>
+					<field name="delivery_boys" widget="many2many_tags"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

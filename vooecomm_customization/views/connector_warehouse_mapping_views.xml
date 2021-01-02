@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+    <record id="connector_warehouse_form" model="ir.ui.view">
+        <field name="name">connector.warehouse.mapping.form</field>
+        <field name="model">connector.warehouse.mapping</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Magento Source Mapping" create="false" edit="false">
+                <group>
+                    <field name="name" readonly="1"/>
+                    <field name="source_code" readonly="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="connector_warehouse_tree" model="ir.ui.view">
+        <field name="name">connector.warehouse.mapping.tree</field>
+        <field name="model">connector.warehouse.mapping</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree create="false" string="Magento Source Mapping">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="source_code"/>
+                <field name="create_date" readonly="1"/>
+                <field name="write_date" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="connector_warehouse_tree_action" model="ir.actions.act_window">
+        <field name="name">Ecomm Warehouse Mapping</field>
+        <field name="res_model">connector.warehouse.mapping</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="connector_warehouse_tree"/>
+    </record>
+
+    <menuitem   id="menu_connector_warehouse" 
+                name="Warehouse Mapping" parent="bridge_skeleton.menu_mapping_id" 
+                action="connector_warehouse_tree_action" sequence="28"/>
+</odoo>

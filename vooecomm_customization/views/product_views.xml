@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <record id="inherit_voo_product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.inherit.voo.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='traceability']" postion="inside">
+                <field name="day_before_expiry" attrs="{'invisible':[('product_variant_count', '>', 1)]}"/>
+                <field name="alert_before_expiry" attrs="{'invisible':[('product_variant_count', '>', 1)]}"/>
+                <field name="remove_before_expiry" attrs="{'invisible':[('product_variant_count', '>', 1)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_voo_product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="name">product.product.inherit.voo.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='weight']" postion="inside">
+                <field name="day_before_expiry"/>
+                <field name="alert_before_expiry"/>
+                <field name="remove_before_expiry"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

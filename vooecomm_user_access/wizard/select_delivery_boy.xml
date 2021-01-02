@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+	<data>
+		<record id="view_select_delivery_boy_wizard" model="ir.ui.view">
+			<field name="name">wizard.select.delivery.boy</field>
+			<field name="model">wizard.select.delivery.boy</field>
+			<field name="inherit_id" ref="delivery_boy.view_select_delivery_boy_wizard"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="before">
+					<field name="partner_ids" invisible="True"/>
+				</xpath>
+				<xpath expr="//field[@name='partner_id']" position="attributes">
+					<attribute name="domain">[('id', 'in', partner_ids)]</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

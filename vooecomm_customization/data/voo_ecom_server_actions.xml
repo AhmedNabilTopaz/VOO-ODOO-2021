@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <data noupdate="0">
+		<record id="action_mass_salesperson_set" model="ir.actions.server">
+			<field name="name">Set Salesperson</field>
+			<field name="model_id" ref="sale.model_sale_order"/>
+			<field name="state">code</field>
+			<field name="code">action = env["salesperson.wizard"].selectSalePerson()</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+		</record>
+    </data>
+</odoo>

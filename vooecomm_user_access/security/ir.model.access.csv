@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sale.access_sale_order_line,sale.order.line,sale.model_sale_order_line,sales_team.group_sale_salesman,1,1,0,0
+access_pnp_not_sale_order_line,sale.order.line pnp_not,sale.model_sale_order_line,group_pnp_not,0,0,1,1
+
+stock_account.access_stock_picking_invoicing_payments,stock.picking,stock.model_stock_picking,account.group_account_invoice,1,0,1,0
+sale_stock.access_stock_picking_salesman,stock_picking salesman,stock.model_stock_picking,sales_team.group_sale_salesman,1,0,1,0
+stock.access_stock_picking_user,stock.picking user,stock.model_stock_picking,stock.group_stock_user,1,0,1,1
+access_pnp_advanced_stock_picking,stock.picking pnp_advanced,stock.model_stock_picking,group_pnp_advanced,0,1,0,0
+
+account.access_account_move_uinvoice,account.move,account.model_account_move,account.group_account_invoice,1,1,0,1
+access_pnp_advanced_account_move,account.move pnp_advanced,account.model_account_move,group_pnp_advanced,0,0,1,0

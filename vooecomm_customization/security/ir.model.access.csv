@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_connector_warehouse_mapping_user,Connector Warehouse User,model_connector_warehouse_mapping,bridge_skeleton.group_connector_user,1,0,0,0
+
+access_connector_warehouse_mapping_manager,Connector Warehouse Manager,model_connector_warehouse_mapping,bridge_skeleton.group_connector_manager,1,1,1,1

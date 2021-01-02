@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+	<data>
+		<record id="view_quotation_tree" model="ir.ui.view">
+			<field name="name">sale.order.tree</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_quotation_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="inside">
+					<field name="viewed" invisible="True"/>
+				</xpath>
+				<xpath expr="//tree" position="attributes">
+					<attribute name="decoration-bf">not viewed</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_order_tree" model="ir.ui.view">
+			<field name="name">sale.order.tree</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="inside">
+					<field name="viewed" invisible="True"/>
+				</xpath>
+				<xpath expr="//tree" position="attributes">
+					<attribute name="decoration-bf">not viewed</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_order_form" model="ir.ui.view">
+			<field name="name">pnp_plus.sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath
+					expr="//form/header/button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]"
+					position="attributes"
+				>
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath
+					expr="//form/header/button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]"
+					position="attributes"
+				>
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath expr="//form/header/button[@name='action_quotation_send'][1]" position="attributes">
+				</xpath>
+				<xpath expr="//form/header/button[@name='action_quotation_send'][4]" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

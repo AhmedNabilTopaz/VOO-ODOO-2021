@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+	<data>
+		<record id="view_picking_form" model="ir.ui.view">
+			<field name="name">stock.picking.form</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//form/header/button[@name='action_assign']" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath expr="//form/header/button[@name='button_validate'][1]" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath expr="//form/header/button[@name='button_validate'][2]" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath expr="//form/header/button[@name='do_unreserve']" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath expr="//form/header/button[@name='button_scrap']" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+				<xpath expr="//form/header/button[@name='action_cancel']" position="attributes">
+					<attribute name="groups">vooecomm_user_access.group_pnp_advanced</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
