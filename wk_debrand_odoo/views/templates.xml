@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <template id="wk_assets_backend_inherit" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+             <script type="text/javascript" src="/wk_debrand_odoo/static/src/js/abstract_web_client.js"></script>
+             <script type="text/javascript" src="/wk_debrand_odoo/static/src/js/dialog.js"></script>
+             <script type="text/javascript" src="/wk_debrand_odoo/static/src/js/dashboard.js"></script>
+             <script type="text/javascript" src="/wk_debrand_odoo/static/src/js/bot.js"></script>
+             <script type="text/javascript" src="/wk_debrand_odoo/static/src/js/my_widget.js"></script>
+        </xpath>
+    </template>
+</odoo>

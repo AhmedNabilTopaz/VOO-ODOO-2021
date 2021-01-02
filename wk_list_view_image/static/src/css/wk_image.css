@@ -1,0 +1,27 @@
+
+.wk_img > img {
+  min-height: 50px !important;
+  min-width: 50px !important;
+  max-height: 50px !important;
+  max-width: 50px !important;
+}
+.wk_img > img:hover {
+    -webkit-transform: scale(3);
+    -moz-transform: scale(3);
+    -ms-transform: scale(3);
+    -o-transform: scale(3);
+    transform: scale(3);
+    z-index: 9999 !important;
+    position: relative;
+}
+
+.wk_img > img {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.o_image_cell{
+  overflow: unset !important;
+}

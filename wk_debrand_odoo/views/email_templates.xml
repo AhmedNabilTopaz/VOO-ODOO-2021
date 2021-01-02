@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    
+    <template id="mail_notification_paynow_inheirt" inherit_id="mail.mail_notification_paynow">
+        <xpath expr="//table/tr[2]/td[@align='center']" position="replace">
+            <td align="center" style="min-width: 590px;">
+                <p>Powered by <a target="_blank" t-att-href="company.website" style="color: #875A7B;"><t t-esc="'%s' % company.name"/></a></p>
+            </td>
+        </xpath>            
+    </template>
+
+    <template id="mail_notification_borders_inherit" inherit_id="mail.mail_notification_borders">
+        <xpath expr="//div/table/tbody/tr[4]/td[@align='center']" position="replace">
+        <td align="center" style="min-width: 590px;">
+                <p>Powered by <a target="_blank" t-att-href="'%r'%company.website" style="color: #875A7B;"><t t-esc="'%s' % company.name"/></a></p>
+            </td>
+        </xpath>
+    </template>
+    
+    <template id="mail_notification_light_inherit" inherit_id="mail.mail_notification_light">
+        <xpath expr="//table/tr[2]/td[@align='center']" position="replace">
+            <td align="center" style="min-width: 590px;">
+                <p>Powered by <a target="_blank"  t-att-href="'%r'%company.website" style="color: #875A7B;"><t t-esc="'%s' % company.name"/></a></p>
+            </td>
+        </xpath>
+    </template>
+
+</odoo>

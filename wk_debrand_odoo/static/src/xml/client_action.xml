@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<templates id="template" xml:space="preserve">
+    <t t-extend="mail.client_action">
+        <t t-jquery=".o_mail_request_permission" t-operation="replace">
+            <t t-if="widget and widget.options and widget.options.odoo_text_replacement">
+                <span class="o_mail_request_permission"><t t-esc="widget.options.odoo_text_replacement"/> needs your permission to <a href="#"> enable desktop notifications</a>.</span>
+            </t>
+            <t t-if="!(widget.options and widget.options.odoo_text_replacement)">
+                <span class="o_mail_request_permission">Needs your permission to <a href="#"> enable desktop notifications</a>.</span>
+            </t>
+        </t>
+    </t>
+</templates>

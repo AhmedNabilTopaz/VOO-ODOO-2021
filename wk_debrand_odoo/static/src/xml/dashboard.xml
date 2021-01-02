@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<templates id="template" xml:space="preserve">
+
+    <!-- <t t-extend="res_config_edition"> -->
+        <!-- <t t-jquery=".user-heading" t-operation="replace"> -->
+            <!-- <h3> -->
+                 <!-- <t t-esc="widget.odoo_text_replacement"/> -->
+                <!-- (Community Edition) -->
+            <!-- </h3> -->
+        <!-- </t> -->
+    <!-- </t> -->
+
+    <!-- <t t-extend="DashboardShare"> -->
+         <!-- <t t-jquery="div .text-muted.text-center.o_web_settings_dashboard_compact_subtitle" t-operation="replace"> -->
+            <!-- <small class="text-muted text-center o_web_settings_dashboard_compact_subtitle"> -->
+                <!-- Help us spread the word: Share our awesomeness with your friends! -->
+            <!-- </small> -->
+         <!-- </t> -->
+         <!--  -->
+        <!-- <t t-jquery="div.user-heading" t-operation="replace"> -->
+            <!-- <div class="user-heading"> -->
+                <!-- <h3> -->
+                    <!-- Software <t t-esc="widget.options.odoo_text_replacement"/> -->
+                    <!-- (Community Edition) -->
+                <!-- </h3> -->
+            <!-- </div> -->
+        <!-- </t> -->
+<!--  -->
+        <!-- <t t-jquery=".text-center.o_web_settings_dashboard_share .row .text-center" t-operation="replace"> -->
+        <!-- </t> -->
+        <!-- <t t-jquery="hr:first" t-operation="replace"></t> -->
+    <!-- </t> -->
+    <t t-extend="DashboardApps">
+        <t t-jquery=".o_web_settings_dashboard_pills" t-operation="replace"></t>
+    </t>
+    <t t-extend="DashboardPlanner">
+        <t t-jquery=".text-center.o_web_settings_dashboard_planner" t-operation="replace"> 
+            <div class="text-center o_web_settings_dashboard_planner">
+                <i class="fa fa-check-square-o fa-4x text-muted"></i>
+                <div class="o_web_settings_dashboard_header">
+                    <span class="o_web_settings_dashboard_planner_overall_progress"><t t-esc="widget.overall_progress"></t></span>%
+                    Implementation
+                </div>
+                <div>
+                    <small class="text-muted text-center o_web_settings_dashboard_compact_subtitle">
+                        Follow these implementation guides
+                    </small>
+                </div>
+                <hr/>
+                <t t-set="planners" t-value="widget.planners"/>
+                <t t-call="DashboardPlanner.PlannersList"/>
+            </div>
+        </t>
+    </t>
+</templates>

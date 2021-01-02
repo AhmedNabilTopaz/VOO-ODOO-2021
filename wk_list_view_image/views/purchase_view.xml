@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="wk_purchase_order_image_added" model="ir.ui.view">
+            <field name="name">purchase.order.wk_purchase_order_image_added</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="image_256" widget="image" class="wk_img" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
