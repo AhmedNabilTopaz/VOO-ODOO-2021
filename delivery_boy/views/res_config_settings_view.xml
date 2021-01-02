@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.delivery.boy</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='stock']/div[1]" position="after" >
+                    <h2>Delivery Boy</h2>
+                    <div class="row mt16 o_settings_container" id="delivery_boy_settings">
+
+                        <div class="col-xs-12 col-lg-6 o_setting_box" id="delivery_boy_config" title="Configuration would be applied to the Delivery Boy.">
+                        <div class="o_setting_left_pane"/>
+                          <div class="o_setting_right_pane">
+                              <span class="o_form_label">Delivery Boy App</span>
+                              <div class="text-muted">
+                                  Configure delivery boy app
+                              </div>
+                              <div class="content-group" title="This configuration will be used to provide commission for a delivery.">
+                                  <div class="mt16">
+                                      <button type="object" name="open_delivery_boy_conf" string="Configuration" class="oe_link btn-link" icon="fa-gears"/>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="col-xs-12 col-lg-6 o_setting_box" id="db_program_id" title="Commision program according to which a commission amount would be provided for a delivery of a picking.">
+                        <div class="o_setting_left_pane">
+                            <field name="allow_db_program"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Allow Delivery Boy Program</span>
+                            <div class="text-muted" attrs="{'invisible': [('allow_db_program', '=', False)]}">
+                                Configure delivery boy program according to which commission would be provided
+                            </div>
+                            <div class="content-group" title="This configuration will be used to provide commission for a delivery." attrs="{'invisible': [('allow_db_program', '=', False)]}">
+                                <div class="mt16">
+                                    <field name="db_program_id" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                      <div class="col-12 col-lg-6 o_setting_box" title="Auto validate the picking on delivery.">
+                                <div class="o_setting_left_pane">
+                                    <field name="auto_validate"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="auto_validate"/>
+                                    <div class="text-muted">
+                                        Auto validate the picking on delivery
+                                    </div>
+                                </div>
+                            </div>
+
+                      <div class="col-12 col-lg-6 o_setting_box" title="Automatically create invoice of picking when delivered.">
+                                <div class="o_setting_left_pane">
+                                    <field name="auto_invoice"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="auto_invoice"/>
+                                    <div class="text-muted">
+                                        Automatically create invoice of picking when delivered
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        <div class="col-12 col-lg-6 o_setting_box" title="An email would be send to the customer with delivery boy picking delivery token">
+                                  <div class="o_setting_left_pane">
+                                      <field name='db_config_id' invisible="1"/>
+                                      <field name="verify_token"/>
+                                  </div>
+                                  <div class="o_setting_right_pane">
+                                      <label for="verify_token"/>
+                                      <div class="text-muted">
+                                          An email would be send to the customer with delivery token for the responsible picking of delivery boy
+                                      </div>
+                                      <div class="content-group"  attrs="{'invisible': [('verify_token', '=', False)]}">
+                                        <div class="row mt16" id="delivery_token_mail_temp_id">
+                                            <label for="delivery_token_mail_temp_id" string="Email Template" class="col-lg-3 o_light_label"/>
+                                            <field name="delivery_token_mail_temp_id" readonly="1"/>
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

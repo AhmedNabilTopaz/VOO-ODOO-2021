@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="delivery_boy_programs_form_view" model="ir.ui.view">
+            <field name="name">Delivery Boy Programs</field>
+            <field name="model">delivery.boy.programs</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Delivery Boy Programs">
+
+                  <sheet>
+                    <h1 class="d-none d-md-block">
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                      <group>
+                        <field name="commission_type"/>
+                        <field name="matrix_type"/>
+
+                        <label for="commission_amount"/>
+  					      			<div>
+                          <field name="commission_amount" class="oe_inline"/>
+                          <span attrs="{'invisible': [('matrix_type','=','percent')]}" style="margin-left: .1em;">
+  		      							 <b>&#160;</b><field name="currency_id" readonly="1" class="oe_inline"/>
+  						      			</span>
+  						      			<span attrs="{'invisible': [('matrix_type','=','fix')]}" style="margin-left: .1em;">
+  						      				<b>%</b>
+  						      			</span>
+                        </div>
+                      </group>
+                    </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="delivery_boy_programs_tree_view">
+            <field name="name">Delivery Boy Programs</field>
+            <field name="model">delivery.boy.programs</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Delivery Boy Programs">
+                  <field name="name"/>
+                  <field name="commission_type"/>
+                  <field name="matrix_type"/>
+                  <field name="commission_amount"/>
+                </tree>
+            </field>
+        </record>
+
+  </data>
+</odoo>

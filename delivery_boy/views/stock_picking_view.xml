@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_stock_picking_inherit_form" model="ir.ui.view">
+      <field name="name">view.stock.picking.inherit.form</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+      
+          <button
+             class="btn-primary"
+             name="action_assign_delivery_boy"
+             type="object"
+             groups="delivery_boy.group_delivery_boy_manager"
+             string="Assign Delivery Boy"
+             attrs="{'invisible':['|',('state','!=','assigned'),('delivery_boy_partner_id','!=',False)]}"
+               />
+
+           <button
+              class="btn-default"
+              name="action_assign_delivery_boy"
+              type="object"
+              groups="delivery_boy.group_delivery_boy_manager"
+              string="Reassign Delivery Boy"
+              attrs="{'invisible':['|',('state','!=','assigned'),('delivery_boy_partner_id','=',False)]}"
+                />
+
+        </xpath>
+
+        <xpath expr="//group" position="inside">
+          <group>
+            <field name="delivery_boy_partner_id" groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"/>
+            <field name="delivery_boy_picking_id" groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"/>
+          </group>
+        </xpath>
+
+      </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="default_delivery_boy_program" model="delivery.boy.programs">
+        <field name="name">Default Delivery Boy Program</field>
+        <field name="commission_type">ppo</field>
+        <field name="matrix_type">fix</field>
+        <field name="is_default">True</field>
+        <field name="commission_amount">100</field>
+    </record>
+
+    <record id="default_delivery_boy_config" model="delivery.boy.config">
+        <field name="name">Delivery Boy Configuration</field>
+    </record>
+
+    <record model="ir.config_parameter" id="delivery_boy.delivery_token_mail_temp_id">
+         <field name="key">delivery_boy.delivery_token_mail_temp_id</field>
+         <field name="value" ref="delivery_boy.delivery_token_email"/>
+    </record>
+
+    <record model="ir.config_parameter" id="delivery_boy.db_program_id">
+         <field name="key">delivery_boy.db_program_id</field>
+         <field name="value" ref="delivery_boy.default_delivery_boy_program"/>
+    </record>
+
+    <record model="ir.config_parameter" id="delivery_boy.db_config_id">
+         <field name="key">delivery_boy.db_config_id</field>
+         <field name="value" ref="delivery_boy.default_delivery_boy_config"/>
+    </record>
+
+    <record model="ir.config_parameter" id="delivery_boy.auto_validate">
+         <field name="key">delivery_boy.auto_validate</field>
+         <field name="value">True</field>
+    </record>
+
+   <record model="ir.actions.server" id="open_invoice_server_action">
+           <field name="name">Create Invoice</field>
+           <field name="model_id" ref="model_delivery_boy_pickings"/>
+           <field name="binding_model_id" ref="model_delivery_boy_pickings" />
+           <field name="state">code</field>
+           <field name="code">
+             if records:
+           action = records.server_action_create_invoice()
+           </field>
+       </record>
+
+   <!-- Delivery Boy Notification Templates -->
+        <record id="delivery_boy_push_notification_template_1" model="delivery.boy.push.notification.template">
+            <field name="name">Picking Canceled</field>
+            <field name="condition">p_canceled</field>
+            <field name="notification_title">_ picking has been canceled by admin.</field>
+            <field name="notification_body">This to notify you regarding the cancelation of the picking with reference id _.</field>
+            <field name="banner_action">none</field>
+        </record>
+
+        <record id="delivery_boy_push_notification_template_2" model="delivery.boy.push.notification.template">
+            <field name="name">Picking Commission Invoiced</field>
+            <field name="condition">p_invoiced</field>
+            <field name="notification_title">_ picking commission has been invoiced by admin.</field>
+            <field name="notification_body">This is to notify you regarding the picking with reference id _, commission is invoiced.</field>
+            <field name="banner_action">none</field>
+        </record>
+
+        <record id="delivery_boy_push_notification_template_3" model="delivery.boy.push.notification.template">
+            <field name="name">Picking Commission Paid</field>
+            <field name="condition">p_paid</field>
+            <field name="notification_title">_ picking commission is successfully paid by admin.</field>
+            <field name="notification_body">This is to notify you regarding the picking with reference id _, commission has been paid by admin.</field>
+            <field name="banner_action">none</field>
+        </record>
+
+        <record id="delivery_boy_push_notification_template_4" model="delivery.boy.push.notification.template">
+            <field name="name">Picking Assigned</field>
+            <field name="condition">p_assigned</field>
+            <field name="notification_title">A picking has been assigned.</field>
+            <field name="notification_body">Picking with reference id _ has been assigned to you.</field>
+            <field name="banner_action">none</field>
+        </record>
+
+  </data>
+</odoo>

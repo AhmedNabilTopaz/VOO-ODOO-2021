@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+
+    <record id="delivery_token_email" model="mail.template">
+          <field name="name">Delivery token email template</field>
+          <field name="model_id" ref="delivery_boy.model_delivery_boy_pickings"/>
+          <field name="email_from">${object.partner_id.company_id.email|safe}</field>
+          <field name="email_to">${(object.picking_id.partner_id.email or object.picking_id.partner_id.parent_id.email)|safe}</field>
+          <field name="subject"> Delivery Boy Picking Delivery Token(Ref ${object.name})</field>
+          <field name="body_html"><![CDATA[
+
+          <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+          <p>Dear ${object.picking_id.partner_id.name},</p>
+              <p>
+                  Please share this delivery token with the delivery boy in order to verify your picking.
+              </p>
+              <p>
+                   <h1>${object.delivery_token}</h1>
+              </p>
+              <p>Best regards,</p>
+              <p>Team- ${object.partner_id.company_id.name}</p>
+          </div>
+          ]]>
+          </field>
+
+      </record>
+
+  </data>
+</odoo>

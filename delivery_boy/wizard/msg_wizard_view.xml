@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="view_msg_wizard">
+			<field name="name">msg.wizard.form</field>
+			<field name="model">msg.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Message" >
+
+					<script>
+						$(document).ready(function(){
+
+						var a = $('div.modal-dialog.modal-lg')
+						a.removeClass('modal-lg')
+
+						});
+					</script>
+
+              <div style="line-height:normal;">
+								<group>
+									<div>
+										<field name="text" readonly="1"/>
+									</div>
+								</group>
+              </div>
+							<footer>
+	              <button string="Ok"
+	                  class="btn-primary"
+	                  special="cancel" />
+              </footer>
+
+					 </form>
+			</field>
+   	</record>
+
+  </data>
+</odoo>

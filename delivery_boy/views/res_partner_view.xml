@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="act_res_partner_2_delivery_boy_pickings" model="ir.actions.act_window">
+            <field name="name">Delivery Boy Pickings</field>
+            <field name="res_model">delivery.boy.pickings</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('partner_id','=', active_id)]</field>
+        </record>
+
+    <record id="view_res_partner_inherit_form" model="ir.ui.view">
+      <field name="name">view.res.partner.inherit.detail.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//div[@name='button_box']" position="inside">
+
+          <button
+            class="oe_stat_button"
+            type="action"
+            name="%(delivery_boy.act_res_partner_2_delivery_boy_pickings)d"
+            groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"
+            invisible="context.get('invisible',True)"
+            icon="fa-truck">
+            <div name="deliveries" class="o_field_widget o_stat_info o_readonly_modifier" data-original-title="" title="">
+                <span class="o_stat_value">
+                  <field name="picking_delivered"/>
+                  /
+                  <field name="picking_count"/>
+                </span>
+                <span class="o_stat_text">Deliveries</span>
+            </div>
+          </button>
+
+
+            <button name="toggle_is_delivery_boy" type="object" class="oe_stat_button" icon="fa-male">
+          <field string="delivery boy" name="is_delivery_boy" invisible="1"/>
+          <span  attrs="{'invisible':[('is_delivery_boy','=',True)]}" class="o_field_widget">Inactive</span>
+          <span attrs="{'invisible':[('is_delivery_boy','=',False)]}" style="color:green" class="o_field_widget" >Delivery Boy</span>
+          </button>
+        </xpath>
+
+        <xpath expr="//sheet" position="before">
+
+          <header>
+
+              <field
+                name="delivery_boy_status"
+                widget="statusbar"
+                clickable="True"
+                groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"
+                statusbar_visible="online,offline"
+                invisible="context.get('invisible',True)"/>
+
+          </header>
+
+        </xpath>
+
+        <xpath expr="//notebook" position="inside">
+          <page
+            string="Delivery Boy Details"
+            name="delivery_boy_details"
+            groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"
+            invisible="context.get('invisible', True)">
+
+              <group string="Commission Invoiced/Paid">
+                <div>
+                  <field name="delivery_boy_picking_ids"/>
+                </div>
+              </group>
+
+              <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                  <field name="commission_invoiced" widget="monetary"/>
+                  <field name="commission_paid" widget="monetary"/>
+
+                  <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                      <label for="amount_due"/>
+                  </div>
+                  <field name="amount_due" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+              </group>
+
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+    <record id="view_res_partner_inherit_filter" model="ir.ui.view">
+      <field name="name">view.res.partner.inherit.filter</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_res_partner_filter" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//group[@name='group_by']" position="inside">
+
+          <filter
+            name="group_delivery_boy_status"
+            string="Delivery Boy Status"
+            invisible="context.get('invisible', True)"
+            context="{'group_by': 'delivery_boy_status'}"/>
+
+        </xpath>
+
+      </field>
+    </record>
+
+    <record id="view_res_partner_inherit_kanban" model="ir.ui.view">
+      <field name="name">view.res.partner.inherit.kanban</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.res_partner_kanban_view" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//div[@class='oe_kanban_details']/strong" position="after">
+          <field name="delivery_boy_status" invisible='1'/>
+          <t t-if="record.delivery_boy_status.raw_value == 'online'"><i class="fa fa-circle pull-right" style="color:green;" invisible="context.get('invisible', True)"></i></t>
+          <t t-if="record.delivery_boy_status.raw_value == 'offline'"><i class="fa fa-circle pull-right" style="color:goldenrod;" invisible="context.get('invisible', True)"></i></t>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>

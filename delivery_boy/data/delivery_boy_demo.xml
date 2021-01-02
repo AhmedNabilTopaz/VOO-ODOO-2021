@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <!-- Res Partner -->
+        <record id="delivery_boy_1" model="res.partner">
+            <field name="name">Demo Delivery Boy 1</field>
+            <field name="is_delivery_boy">1</field>
+            <field name="delivery_boy_status">online</field>
+            <field name="city">DemoCity1</field>
+            <field name="zip">106</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="street">31 Demo city  street</field>
+            <field name="email">Demo@example.com</field>
+            <field name="phone">(+886) (02) 4162 2023</field>
+            <field name="image_1920" type="base64" file="delivery_boy/static/img/res_partner_1-image.png"/>
+        </record>
+
+        <record id="delivery_boy_2" model="res.partner">
+            <field name="name">Demo Delivery Boy 2</field>
+            <field name="is_delivery_boy">1</field>
+            <field name="delivery_boy_status">online</field>
+            <field name="city">DemoCity2</field>
+            <field name="zip">10634</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="street">38 Demo city2  street</field>
+            <field name="email">Demo2@example.com</field>
+            <field name="phone">(+886) (02) 4452 4083</field>
+            <field name="image_1920" type="base64" file="delivery_boy/static/img/res_partner_2-image.png"/>
+        </record>
+
+        <record id="delivery_boy_3" model="res.partner">
+            <field name="name">Demo Delivery Boy 3</field>
+            <field name="is_delivery_boy">1</field>
+            <field name="delivery_boy_status">offline</field>
+            <field name="city">DemoCity3</field>
+            <field name="zip">246</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="street">3 Demo city3  street</field>
+            <field name="email">Demo3@example.com</field>
+            <field name="phone">(+886) (02) 8292 1823</field>
+            <field name="image_1920" type="base64" file="delivery_boy/static/img/res_partner_3-image.jpeg"/>
+        </record>
+
+        <record id="delivery_boy_4" model="res.partner">
+            <field name="name">Demo Delivery Boy 4</field>
+            <field name="is_delivery_boy">1</field>
+            <field name="delivery_boy_status">offline</field>
+            <field name="city">DemoCity4</field>
+            <field name="zip">446</field>
+            <field name="country_id" ref="base.tw"/>
+            <field name="street">12 Demo city4  street</field>
+            <field name="email">Demo4@example.com</field>
+            <field name="phone">(+886) (02) 6282 1723</field>
+            <field name="image_1920" type="base64" file="delivery_boy/static/img/res_partner_2-image.png"/>
+        </record>
+
+    <!-- Delivery Boy Pickings -->
+        <record id="delivery_boy_pickings_1" model="delivery.boy.pickings">
+            <field name="assigned_date" eval="DateTime.today()"/>
+            <field name="partner_id" ref="delivery_boy_1"/>
+        </record>
+
+        <record id="delivery_boy_pickings_2" model="delivery.boy.pickings">
+            <field name="assigned_date" eval="DateTime.today()"/>
+            <field name="partner_id" ref="delivery_boy_2"/>
+        </record>
+
+        <record id="delivery_boy_pickings_3" model="delivery.boy.pickings">
+            <field name="assigned_date" eval="DateTime.today()"/>
+            <field name="partner_id" ref="delivery_boy_2"/>
+        </record>
+
+        <record id="delivery_boy_pickings_4" model="delivery.boy.pickings">
+            <field name="assigned_date" eval="DateTime.today()"/>
+            <field name="partner_id" ref="delivery_boy_3"/>
+        </record>
+
+        <record id="delivery_boy_pickings_5" model="delivery.boy.pickings">
+            <field name="assigned_date" eval="DateTime.today()"/>
+            <field name="partner_id" ref="delivery_boy_1"/>
+            <field name="picking_state">cancel</field>
+        </record>
+
+        <record id="delivery_boy_pickings_6" model="delivery.boy.pickings">
+            <field name="assigned_date" eval="DateTime.today()"/>
+            <field name="partner_id" ref="delivery_boy_2"/>
+            <field name="picking_state">cancel</field>
+        </record>
+
+    <!-- Set Picking id for Delivery Boy Pickings -->
+        <function
+            model="delivery.boy.pickings"
+            name="demo_set_picking_id"/>
+
+    <!-- Deliver some Delivery Boy Pickings -->
+        <function model="delivery.boy.pickings" name="action_delivered" eval="[[ref('delivery_boy_pickings_2')]]"/>
+        <function model="delivery.boy.pickings" name="action_delivered" eval="[[ref('delivery_boy_pickings_4')]]"/>
+
+    <!-- Cancel some Delivery Boy Pickings -->
+        <function model="delivery.boy.pickings" name="action_cancel" eval="[[ref('delivery_boy_pickings_5')]]"/>
+        <function model="delivery.boy.pickings" name="action_cancel" eval="[[ref('delivery_boy_pickings_6')]]"/>
+
+    </data>
+</odoo>

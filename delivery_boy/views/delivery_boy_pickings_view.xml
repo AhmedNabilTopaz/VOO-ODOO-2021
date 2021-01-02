@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="delivery_boy_pickings_form_view" model="ir.ui.view">
+            <field name="name">Delivery Boy Pickings</field>
+            <field name="model">delivery.boy.pickings</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false" string="Delivery Boy Pickings">
+                  <header>
+                    <button
+                       class="btn-primary"
+                       name="action_delivered"
+                       type="object"
+                       groups="delivery_boy.group_delivery_boy_manager"
+                       string="Delivered"
+                       attrs="{'invisible':[('picking_state','not in',('assigned', 'accept'))]}"
+                         />
+
+                   <button
+                      class="btn-default"
+                      name="action_cancel"
+                      type="object"
+                      groups="delivery_boy.group_delivery_boy_manager"
+                      string="Cancel"
+                      attrs="{'invisible':[('picking_state','!=','assigned')]}"
+                        />
+
+                    <button
+                       class="btn-primary"
+                       name="action_create_invoice"
+                       type="object"
+                       groups="delivery_boy.group_delivery_boy_manager"
+                       string="Create Invoice"
+                       attrs="{'invisible':[('picking_state','!=','delivered')]}"
+                         />
+
+                    <field
+                      name="picking_state"
+                      widget="statusbar"
+                      groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"
+                      statusbar_visible="assigned,delivered,cancel,invoiced,paid"/>
+                  </header>
+
+                  <sheet>
+                    <div class="oe_button_box" name="button_box" >
+                      <button
+                        
+                        class="oe_stat_button"
+                        type="object"
+                        context="{'invoice_id':3}"
+                        name="act_delivery_boy_pickings_2_account_invoice"
+                        groups="delivery_boy.group_delivery_boy_manager, delivery_boy.group_delivery_boy_user"
+                        attrs="{'invisible': [('invoice_id','=',False)]}"
+                        icon="fa-pencil-square-o"
+                        style="width:170px;">
+                        <div name="invoice" class="o_field_widget o_stat_info o_readonly_modifier" data-original-title="" title="">
+                          <field name="invoice_id"/>
+                          <span class="o_stat_text">Invoice</span>
+                      </div>
+                      </button>
+                    </div>
+                    <h1 class="d-none d-md-block">
+                        <field name="name" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+                    <group>
+                      <group>
+                        <field name="delivery_token"/>
+                        <field name="assigned_date" readonly="1"/>
+                        <field name="sale_order_id" attrs="{'invisible': [('sale_order_id','=',False)]}" readonly="1"/>
+                        <field name="picking_id" readonly="1"/>
+                        <field name="commission_date" readonly="1"/>
+                        <field name="commission_amount" readonly="1"/>
+                      </group>
+                      <group>
+                        <field name="partner_id" context="{'default_is_delivery_boy' : True,'default_customer' : False,'invisible': False}"/>
+                        <field name="commission_type" readonly="1" attrs="{'invisible': [('picking_state','not in',('delivered','invoiced','paid'))]}"/>
+                        <field name="matrix_type" readonly="1" attrs="{'invisible': [('picking_state','not in',('delivered','invoiced','paid'))]}"/>
+
+                        <label for="program_commission_amount" attrs="{'invisible': [('picking_state','not in',('delivered','invoiced','paid'))]}"/>
+                        <div attrs="{'invisible': [('picking_state','not in',('delivered','invoiced','paid'))]}">
+                          <field name="program_commission_amount" class="oe_inline"/>
+                          <span attrs="{'invisible': [('matrix_type','=','percent')]}" style="margin-left: .2em;">
+  		      							 <b>&#160;</b><field name="currency_id" readonly="1" class="oe_inline"/>
+  						      			</span>
+  						      			<span attrs="{'invisible': [('matrix_type','=','fix')]}" style="margin-left: .2em;">
+  						      				<b>%</b>
+  						      			</span>
+                        </div>
+
+                      </group>
+                      <field name="msg" attrs="{'invisible': [('msg','=',False)]}" style="color:#31708f;"/>
+                    </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="delivery_boy_pickings_tree_view">
+            <field name="name">Delivery Boy Pickings</field>
+            <field name="model">delivery.boy.pickings</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Delivery Boy Pickings" create="false" decoration-success="picking_state=='delivered'" decoration-info="picking_state=='assigned'" decoration-danger="picking_state in ('denied','cancel')" decoration-muted="picking_state=='paid'">
+                    <field name="name"/>
+                    <field name="picking_id"/>
+                    <field name="partner_id"/>
+                    <field name="assigned_date"/>
+                    <field name="commission_amount"/>
+                    <field name="picking_state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="delivery_boy_pickings_view_search" model="ir.ui.view">
+	      	<field name="name">delivery.boy.pickings.search</field>
+	      	 <field name="model">delivery.boy.pickings</field>
+	      	 <field name="arch" type="xml">
+	      	 <search string="Search Pickings">
+      	 		 <group string="Group By">
+              <filter string="Delivery Boy" name="groupby_partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+              <filter string="Picking State" name="groupby_picking_state" domain="[]" context="{'group_by':'picking_state'}"/>
+			       </group>
+	      	 	</search>
+	      	 </field>
+      	</record>
+
+    <record id="delivery_boy_pickings_action" model="ir.actions.act_window">
+            <field name="name">Delivery Boy Pickings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.boy.pickings</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_groupby_partner_id': 1}</field>
+    </record>
+
+		<menuitem id="delivery_boy_pickings_sub_menu"
+      parent="delivery_boy_sub_menu_root"
+      name="All Pickings"
+      groups="delivery_boy.group_delivery_boy_manager,delivery_boy.group_delivery_boy_user"
+      action='delivery_boy_pickings_action'
+      />
+
+  </data>
+</odoo>

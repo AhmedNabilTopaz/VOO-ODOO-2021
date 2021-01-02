@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_res_users_inherit_form" model="ir.ui.view">
+      <field name="name">view.res.users.inherit.detail.form</field>
+      <field name="model">res.users</field>
+      <field name="inherit_id" ref="base.view_users_form" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//sheet/div/button" position="before">
+           <button name="toggle_is_delivery_boy" type="object" class="oe_stat_button" icon="fa-male">
+          <field string="delivery boy" name="is_delivery_boy" invisible="1"/>
+          <span  attrs="{'invisible':[('is_delivery_boy','=',True)]}" class="o_field_widget">Inactive</span>
+          <span attrs="{'invisible':[('is_delivery_boy','=',False)]}" style="color:green" class="o_field_widget" >Delivery Boy</span>
+          
+         </button>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

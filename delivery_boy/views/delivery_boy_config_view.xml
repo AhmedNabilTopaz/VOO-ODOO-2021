@@ -1,0 +1,438 @@
+<odoo>
+  <data>
+
+    <!-- Delivery Boy Configuration View -->
+
+    <record id="delivery_boy_config_view_form" model="ir.ui.view">
+        <field name="name">delivery.boy.config.form</field>
+        <field name="model">delivery.boy.config</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Boy Configuration" create="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" string="Title"/>
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                    </div>
+                <notebook>
+                    <page string="Credentials">
+                        <group string="Delivery Boy API Configuration">
+                            <field name="api_key"/>
+                        </group>
+                        <group string="Android/IOS Push Notification Credentials">
+                            <field name="fcm_api_key"/>
+                        </group>
+                    </page>
+                    <page string="Advanced">
+                        <group>
+                            <group string="Language">
+                                <label for="language_ids"/>
+                                <div name="language_ids">
+                                    <div>
+                                        <div name="language_ids" class="oe_inline">
+                                            <field name="language_ids" widget="many2many_checkboxes"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <field name="default_lang" widget="selection" required="1"/>
+                            </group>
+                            <group string="Delivery Boy Extra Features">
+                                <field name="db_reset_password"/>
+                                <field name="show_banner"/>
+                                <field name="verify_token"/>
+                             </group>
+                        </group>
+                    </page>
+                </notebook>
+                </sheet>
+                <div style="text-align: center;">
+                    <div class="oe_edit_only" attrs="{'invisible': [('db_banner', '=', False)]}">
+                        <h1>Change Banner Image</h1>
+                    </div>
+                    <div class="oe_edit_only" attrs="{'invisible': [('db_banner', '!=', False)]}">
+                        <h1>Upload Banner Image</h1>
+                    </div>
+                    <field name="db_banner" widget="image" colspan="4"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Push Notification Template View -->
+
+    <record id="delivery_boy_push_notification_template_view_form" model="ir.ui.view">
+        <field name="name">delivery.boy.push.notification.template.form</field>
+        <field name="model">delivery.boy.push.notification.template</field>
+        <field name="arch" type="xml">
+            <form string="Push Notification Template">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" string="Name"/>
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Record name"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="Information">
+                        <separator string="Notification will be triggered automatically when" colspan="4"/>
+                            <group>
+                              <group>
+                                <field name="condition" required="1"/>
+                              </group>
+                            </group>
+                        <separator string="Content to be displayed in Push Notification" colspan="4"/>
+                            <p style="color:#8f9092;">Please provide with character "_" where you want to show the picking Reference Id.</p>
+                            <field name="notification_title" colspan="4" placeholder="Title"/>
+                            <field name="notification_body" colspan="4" placeholder="Body"/>
+                        <separator string="Action to be triggered on click/touch" colspan="4"/>
+                            <group>
+                                <group>
+                                    <field name="banner_action"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Advanced">
+                            <group>
+                                <group>
+                                    <field name="notification_color"/>
+                                    <field name="notification_tag"/>
+                                </group>
+                                <group>
+                                    <field name="total_views" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="device_id" widget="selection"/>
+
+                                </group>
+                                 <button name="dry_run" type="object" string="Dry run on" class="oe_highlight" style="width: 83px;position: relative;top: 8px;"/>
+                            </group>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_boy_push_notification_template_view_tree" model="ir.ui.view">
+        <field name="name">delivery.boy.push.notification.template.tree</field>
+        <field name="model">delivery.boy.push.notification.template</field>
+        <field name="arch" type="xml">
+            <tree string="Push Notification Templates">
+                <field name="name"/>
+                <field name="banner_action"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="delivery_boy_push_notification_templates_action" model="ir.actions.act_window">
+        <field name="name">Push Notifications Templates</field>
+        <field name="res_model">delivery.boy.push.notification.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new Push Notification Templates for your Delivery Boy App.
+          </p>
+        </field>
+    </record>
+
+    <!-- Push Notification View -->
+
+    <record id="delivery_boy_push_notification_view_form" model="ir.ui.view">
+        <field name="name">delivery.boy.push.notification.form</field>
+        <field name="model">delivery.boy.push.notification</field>
+        <field name="arch" type="xml">
+            <form string="Push Notification">
+                <header>
+                    <button name="action_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
+                    <button name="action_draft" states="cancel,hold" type="object" string="Set to Draft"/>
+                    <button name="action_hold" states="confirm" type="object" string="Set to Hold"/>
+                    <button name="action_confirm" states="hold" type="object" string="Release Hold" class="oe_highlight"/>
+                    <button name="action_cancel" states="draft,hold" type="object" string="Cancel"/>
+                    <button name="push_now" states="confirm" type="object" string="Push now" class="oe_highlight"/>
+                    <button name="duplicate_me" states="done" type="object" string="Duplicate" />
+                    <button name="push_now" states="error" type="object" string="Retry" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" string="Name"/>
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Record name"/>
+                        </h1>
+                    </div>
+                    <br/>
+                    <br/>
+                    <separator string="Result" colspan="4" attrs="{'invisible': [('state', 'not in', ['done','error'])]}"/>
+                            <field name="summary" colspan="4" attrs="{'invisible': [('state', 'not in', ['done','error'])]}"/>
+                    <notebook>
+                        <page string="Information">
+                        <separator string="Content to be displayed in Push Notification" colspan="4"/>
+                            <field name="notification_title" colspan="4" placeholder="Title"/>
+                            <field name="notification_body" colspan="4" placeholder="Body"/>
+                        <separator string="Action to be triggered on click/touch" colspan="4"/>
+                            <group>
+                                <group>
+                                  <field name="banner_action"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Advanced">
+                            <separator string="Notification Type" colspan="4"/>
+                            <group>
+                                <group>
+                                    <field name="notification_type"/>
+                                </group>
+                                <group>
+                                    <field name="device_ids" attrs="{'invisible': [('notification_type', 'in', ['topic','token-auto'])], 'required': [('notification_type', '=', 'token-manual')]}" widget="many2many_tags" quick_create="false"/>
+                                </group>
+                            </group>
+                            <separator string="Others" colspan="4"/>
+                            <group>
+                                <group>
+                                    <field name="activation_date" invisible="1"/>
+                                    <field name="notification_color"/>
+                                    <field name="notification_tag"/>
+                                </group>
+                                <group>
+                                    <field name="total_views" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_boy_push_notification_filter_view" model="ir.ui.view">
+        <field name="name">delivery_boy_push_notification.search.delivery.boy</field>
+        <field name="model">delivery.boy.push.notification</field>
+        <field name="arch" type="xml">
+            <search string="Delivery Boy Push Notification">
+                <field name="name" string="Push Notification" filter_domain="[('name','ilike',self)]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- delivery.boy.push.notification : actions -->
+
+    <record id="delivery_boy_push_notification_action" model="ir.actions.act_window">
+        <field name="name">Delivery Boy Push Notifications</field>
+        <field name="res_model">delivery.boy.push.notification</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="delivery_boy_push_notification_filter_view"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new Push Notification for your Delivery Boy App.
+          </p>
+        </field>
+    </record>
+
+    <!-- Push Notification Messages View -->
+
+    <!-- Tree View -->
+    <record id="delivery_boy_notification_messages_view_tree" model="ir.ui.view">
+        <field name="name">delivery_boy_notification_messages.tree</field>
+        <field name="model">delivery.boy.notification.messages</field>
+        <field name="arch" type="xml">
+            <tree string="Notification Messages">
+                <field name="name"/>
+                <field name="is_read"/>
+                <field name="partner_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="delivery_boy_notification_messages_view_form" model="ir.ui.view">
+        <field name="name">delivery_boy_notification_messages.form</field>
+        <field name="model">delivery.boy.notification.messages</field>
+        <field name="arch" type="xml">
+            <form string="Notification Messages">
+               <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Record name"/>
+                        </h1>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <notebook>
+                        <page string="Information">
+                        <separator string="Content to be displayed in Notification Message" colspan="4"/>
+                            <field name="title" colspan="4" placeholder="Title"/>
+                            <separator/>
+                            <field name="subtitle" colspan="4" placeholder="Subtitle"/>
+                            <field name="body" colspan="4" placeholder="Body"/>
+                            <group>
+
+                                <group>
+                                    <field name="datatype"/>
+                                    <field name="is_read" />
+                                    <field name="partner_id"/>
+                                </group>
+
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div style="text-align: center;">
+                    <div class="oe_edit_only" attrs="{'invisible': [('banner', '=', False)]}">
+                        <h1>Change Banner Image</h1>
+                    </div>
+                    <div class="oe_edit_only" attrs="{'invisible': [('banner', '!=', False)]}">
+                        <h1>Upload Banner Image</h1>
+                    </div>
+                    <field name="banner" widget="image" colspan="4"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_boy_notification_messages_filter_view" model="ir.ui.view">
+        <field name="name">Delivery Boy Notification Messages Search</field>
+        <field name="model">delivery.boy.notification.messages</field>
+        <field name="arch" type="xml">
+            <search string="Delivery Boy Notification Messages">
+                <group expand="0" string="Group By">
+                        <filter string="Delivery Boy" name="groupby_partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- delivery.boy.notification.messages action -->
+    <record id="delivery_boy_notification_messages_templates_action" model="ir.actions.act_window">
+        <field name="name">Delivery Boy Notification Messages</field>
+        <field name="res_model">delivery.boy.notification.messages</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_id" ref="delivery_boy_notification_messages_view_tree"/>
+        <field name="context">{'search_default_groupby_partner_id': 1}</field>
+
+        <field name="search_view_id" ref="delivery_boy_notification_messages_filter_view"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new Notification Messages for your Delivery Boy App.
+          </p>
+        </field>
+    </record>
+
+    <!-- FCM Registered Devices View -->
+
+    <record id="delivery_boy_fcm_registered_devices_view_form" model="ir.ui.view">
+        <field name="name">delivery.boy.fcm_registered_devices.form</field>
+        <field name="model">delivery.boy.fcm.registered.devices</field>
+        <field name="arch" type="xml">
+            <form string="Registered Devices">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="device_id"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="write_date"/>
+                        </group>
+                        <field name="token"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_boy_fcm_registered_devices_view_tree" model="ir.ui.view">
+        <field name="name">fcm_registered_devices.tree</field>
+        <field name="model">delivery.boy.fcm.registered.devices</field>
+        <field name="arch" type="xml">
+            <tree string="Registered Devices">
+                <field name="partner_id"/>
+                <field name="device_id"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="delivery_boy_fcm_registered_devices_action" model="ir.actions.act_window">
+        <field name="name">FCM Registered Devices</field>
+        <field name="res_model">delivery.boy.fcm.registered.devices</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="delivery_boy_fcm_registered_devices_view_tree"/>
+    </record>
+
+    <!-- All Menuitems -->
+
+    <!-- FCM Menus -->
+    <menuitem id="delivery_boy_fcm_registered_devices_sub_menu"
+      parent="stock.menu_stock_config_settings"
+      name="FCM Reg. Devices"
+      groups="delivery_boy.group_delivery_boy_manager,delivery_boy.group_delivery_boy_user"
+      action='delivery_boy_fcm_registered_devices_action'
+      />
+
+    <!-- Push Notification Menus -->
+    <menuitem id="push_notifications_sub_menu_root"
+      parent="delivery_boy_sub_menu_root"
+      name="Push Notifications"
+      groups="delivery_boy.group_delivery_boy_manager,delivery_boy.group_delivery_boy_user"
+
+      />
+
+    <menuitem id="push_notification_sub_menu_one_time_notification"
+      name="One-Time Notifications"
+      parent="push_notifications_sub_menu_root"
+      action="delivery_boy_push_notification_action"
+      sequence="1"/>
+    <menuitem id="push_notifications_sub_menu_notification_template"
+      parent="push_notifications_sub_menu_root"
+      name="Notification Template"
+      action="delivery_boy_push_notification_templates_action"
+      sequence="2"/>
+    <menuitem id="push_notification_sub_menu_notification_messages"
+      name="Notification Messages"
+      parent="push_notifications_sub_menu_root"
+      action="delivery_boy_notification_messages_templates_action"
+      sequence="3"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="delivery_boys_action" model="ir.actions.act_window">
+            <field name="name">Delivery Boys</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('is_delivery_boy','=', True)]</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">
+                {
+                "search_default_group_delivery_boy_status": 1,
+                "invisible":False,
+                "default_is_delivery_boy" : True,
+                "default_customer" : False,
+                "create": 0
+                }
+            </field>
+    </record>
+
+
+    <menuitem id="delivery_boy_sub_menu_root"
+      parent="stock.menu_stock_root"
+      name="Delivery Boy"
+      groups="delivery_boy.group_delivery_boy_manager,delivery_boy.group_delivery_boy_user"
+      sequence="5"
+          />
+
+		<menuitem id="delivery_boy_sub_menu_delivery_boys"
+      parent="delivery_boy_sub_menu_root"
+      name="All Delivery Boys"
+      groups="delivery_boy.group_delivery_boy_manager,delivery_boy.group_delivery_boy_user"
+      action='delivery_boys_action'
+      />
+  </data>
+</odoo>

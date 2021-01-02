@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="view_select_delivery_boy_wizard">
+			<field name="name">wizard.select.delivery.boy.form</field>
+			<field name="model">wizard.select.delivery.boy</field>
+			<field name="arch" type="xml">
+				<form string="Select Delivery Boy" >
+
+					<script>
+						$(document).ready(function(){
+
+						var a = $('div.modal-dialog.modal-lg')
+						a.removeClass('modal-lg')
+
+						});
+					</script>
+
+              <div style="line-height:normal;">
+								<span style="font-style: oblique;font-weight: bold;">Select a delivery boy:</span>
+								<group>
+									<div>
+											<field
+												name="partner_id"
+												domain="[('is_delivery_boy','=',True),('id','!=',context.get('delivery_boy_partner_id', False))]"
+												options="{'no_create': True, 'no_open': True}"
+                        required="1"/>
+									</div>
+								</group>
+              </div>
+							<footer>
+	              <button name="action_assign_delivery_boy"
+	                  string="Assign" type="object"
+	                  class="btn-primary"/>
+
+	              <button string="Cancel"
+	                  class="btn-default"
+	                  special="cancel" />
+              </footer>
+
+					 </form>
+			</field>
+   	</record>
+
+		<!-- <record model="ir.actions.act_window" id="action_enter_ftp_details">
+			<field name="name">FTP Details</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">enter.ftp.details</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_enter_ftp_details"/>
+      <field name="target">new</field>
+		</record> -->
+
+  </data>
+</odoo>
